@@ -2,6 +2,9 @@
 
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <Filter Include="ClipConnect\TimecodeList">
+      <UniqueIdentifier>{6A618AE4-D80F-872D-8004-BE3B57628E94}</UniqueIdentifier>
+    </Filter>
     <Filter Include="ClipConnect\Source">
       <UniqueIdentifier>{D78B5E4D-FFC6-7354-522C-0210330051C8}</UniqueIdentifier>
     </Filter>
@@ -2283,6 +2286,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\TimecodeList\TimecodeList.h">
+      <Filter>ClipConnect\TimecodeList</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\MainComponent.h">
       <Filter>ClipConnect\Source</Filter>
     </ClInclude>

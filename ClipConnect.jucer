@@ -2,6 +2,9 @@
 
 <JUCERPROJECT id="Mo4xNE" name="ClipConnect" projectType="guiapp" jucerVersion="5.4.4">
   <MAINGROUP id="NorGid" name="ClipConnect">
+    <GROUP id="{BDE053F3-DC6C-ACEC-7916-3EB323AB931B}" name="TimecodeList">
+      <FILE id="p9uqwm" name="TimecodeList.h" compile="0" resource="0" file="Source/TimecodeList/TimecodeList.h"/>
+    </GROUP>
     <GROUP id="{FAB9386B-0AED-8BAB-65B5-024DDAC86636}" name="Source">
       <FILE id="ZSHcD2" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
       <FILE id="pEo32T" name="MainComponent.cpp" compile="1" resource="0"

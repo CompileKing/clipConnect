@@ -56,6 +56,7 @@ MainComponent::~MainComponent()
 void MainComponent::paint (Graphics& g)
 {
     g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
+    //g.fillAll (Colour::fromHSV(0.3f, 0.2f, 0.2, 1.f));
 }
 
 void MainComponent::resized()
