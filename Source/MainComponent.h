@@ -9,6 +9,7 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
+using namespace std;
 
 //==============================================================================
 /*
@@ -41,13 +42,14 @@ private:
     
     void oscMessageReceived (const OSCMessage& message) override
     {
-        if (message.size() == 1 && message[0].isFloat32())                       // [5]
-            testSlider.setValue (jlimit (0.0f, 10.0f, message[0].getFloat32())); // [6]
+        // cout << "current message: " << message[0].isString() << endl;
+        if (message.size() == 1 && message[0].isString())
+            timeCodeLabel.setText(message[0].getString(), dontSendNotification);
     }
     
     Slider testSlider;
     OSCSender sender;
-    OSCReceiver receiver;
+    Label timeCodeLabel;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
 };

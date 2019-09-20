@@ -13,19 +13,34 @@ using namespace std;
 MainComponent::MainComponent()
 {
     
+    /*
+    // setKnob
     testSlider.setRange(0.f, 1.f);
     testSlider.setSliderStyle(Slider::RotaryVerticalDrag);
     testSlider.addListener(this);
     addAndMakeVisible(testSlider);
+     */
     
-    sender.connect("127.0.0.1", 7002);
+    // set timecode label
+    timeCodeLabel.setFont(Font (130.f,Font::bold));
+    timeCodeLabel.setText("TIMECODE LABEL", dontSendNotification);
+    timeCodeLabel.setJustificationType(Justification::centred);
+    addAndMakeVisible(timeCodeLabel);
     
-    if (! connect(7000))
+    // OSC send connecter
+    sender.connect("127.0.0.1", 7000);
+    
+    // OSC Receive connecter
+    if (! connect(7002))
     {
         cout << "couldn't connect" << endl;
     }
-    addListener(this, "/juce/knopjeReceive");
     
+    // add OSC listener
+    // addListener(this, "/juce/knopjeReceive");
+    addListener(this, "/fake/resolume/adress");
+    
+    // other juce stuff
     setSize (600, 400);
 }
 
@@ -41,7 +56,10 @@ void MainComponent::paint (Graphics& g)
 
 void MainComponent::resized()
 {
-    int sliderSize = 200;
+    int objectSize = getWidth()-100;
+    /*
     testSlider.setBounds((getWidth()/2)-(sliderSize/2), (getHeight()/2)-(sliderSize/2), sliderSize, sliderSize);
     testSlider.setTextBoxStyle(Slider::TextBoxBelow, true, sliderSize*0.6, 30);
+     */
+    timeCodeLabel.setBounds((getWidth()/2)-(objectSize/2), (getHeight()/2)-(objectSize/2), objectSize, objectSize);
 }
