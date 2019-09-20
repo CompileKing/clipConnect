@@ -7,10 +7,25 @@
 */
 
 #include "MainComponent.h"
+using namespace std;
 
 //==============================================================================
 MainComponent::MainComponent()
 {
+    
+    testSlider.setRange(0.f, 1.f);
+    testSlider.setSliderStyle(Slider::RotaryVerticalDrag);
+    testSlider.addListener(this);
+    addAndMakeVisible(testSlider);
+    
+    sender.connect("127.0.0.1", 7002);
+    
+    if (! connect(7000))
+    {
+        cout << "couldn't connect" << endl;
+    }
+    addListener(this, "/juce/knopjeReceive");
+    
     setSize (600, 400);
 }
 
@@ -21,17 +36,12 @@ MainComponent::~MainComponent()
 //==============================================================================
 void MainComponent::paint (Graphics& g)
 {
-    // (Our component is opaque, so we must completely fill the background with a solid colour)
     g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
-
-    g.setFont (Font (16.0f));
-    g.setColour (Colours::white);
-    g.drawText ("Hello World!", getLocalBounds(), Justification::centred, true);
 }
 
 void MainComponent::resized()
 {
-    // This is called when the MainComponent is resized.
-    // If you add any child components, this is where you should
-    // update their positions.
+    int sliderSize = 200;
+    testSlider.setBounds((getWidth()/2)-(sliderSize/2), (getHeight()/2)-(sliderSize/2), sliderSize, sliderSize);
+    testSlider.setTextBoxStyle(Slider::TextBoxBelow, true, sliderSize*0.6, 30);
 }
