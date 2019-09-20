@@ -32,10 +32,6 @@ public:
     
     void sliderValueChanged (Slider* slider) override
     {
-        if (slider == &testSlider)
-        {
-             sender.send("/juce/knopjeSend",(float) testSlider.getValue());
-        }
     }
 
 private:
@@ -44,8 +40,20 @@ private:
     {
         // cout << "current message: " << message[0].isString() << endl;
         if (message.size() == 1 && message[0].isString())
+        {
             timeCodeLabel.setText(message[0].getString(), dontSendNotification);
+            const char * str1 = message[0].getString().toStdString().c_str();
+            const char * str2 = "14:49:00";
+            int strncmpResult = strncmp(str1, str2, sizeof(&str2));
+            if (strncmpResult == 0)
+            {
+                cout << "timecode match" << endl;
+            }
+        }
+        
     }
+    
+    
     
     Slider testSlider;
     OSCSender sender;

@@ -13,14 +13,7 @@ using namespace std;
 MainComponent::MainComponent()
 {
     
-    /*
-    // setKnob
-    testSlider.setRange(0.f, 1.f);
-    testSlider.setSliderStyle(Slider::RotaryVerticalDrag);
-    testSlider.addListener(this);
-    addAndMakeVisible(testSlider);
-     */
-    
+
     // set timecode label
     timeCodeLabel.setFont(Font (130.f,Font::bold));
     timeCodeLabel.setText("TIMECODE LABEL", dontSendNotification);
@@ -57,9 +50,6 @@ void MainComponent::paint (Graphics& g)
 void MainComponent::resized()
 {
     int objectSize = getWidth()-100;
-    /*
-    testSlider.setBounds((getWidth()/2)-(sliderSize/2), (getHeight()/2)-(sliderSize/2), sliderSize, sliderSize);
-    testSlider.setTextBoxStyle(Slider::TextBoxBelow, true, sliderSize*0.6, 30);
-     */
+    
     timeCodeLabel.setBounds((getWidth()/2)-(objectSize/2), (getHeight()/2)-(objectSize/2), objectSize, objectSize);
 }
