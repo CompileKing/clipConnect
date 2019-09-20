@@ -16,9 +16,14 @@ MainComponent::MainComponent()
 
     // set timecode label
     timeCodeLabel.setFont(Font (130.f,Font::bold));
-    timeCodeLabel.setText("TIMECODE LABEL", dontSendNotification);
+    timeCodeLabel.setText("00:00:00", dontSendNotification);
     timeCodeLabel.setJustificationType(Justification::centred);
     addAndMakeVisible(timeCodeLabel);
+    
+    currentColumn.setFont(Font(80.f,Font::bold));
+    currentColumn.setText("currentColumn", dontSendNotification);
+    currentColumn.setJustificationType(Justification::centred);
+    addAndMakeVisible(currentColumn);
     
     // OSC send connecter
     sender.connect("127.0.0.1", 7000);
@@ -51,5 +56,11 @@ void MainComponent::resized()
 {
     int objectSize = getWidth()-100;
     
-    timeCodeLabel.setBounds((getWidth()/2)-(objectSize/2), (getHeight()/2)-(objectSize/2), objectSize, objectSize);
+    timeCodeLabel.setBounds((getWidth()/2)-(objectSize/2),
+                            (getHeight()/2)-(objectSize/2)-50,
+                            objectSize, objectSize);
+    currentColumn.setBounds((getWidth()/2)-(objectSize/2),
+                            (getHeight()/2)-(objectSize/2)+50,
+                            objectSize, objectSize);
+    
 }
