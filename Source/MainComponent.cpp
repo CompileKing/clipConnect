@@ -15,15 +15,21 @@ MainComponent::MainComponent()
     
 
     // set timecode label
-    timeCodeLabel.setFont(Font (130.f,Font::bold));
+    timeCodeLabel.setFont(Font ("Monaco", 130.f, 0));
     timeCodeLabel.setText("00:00:00", dontSendNotification);
     timeCodeLabel.setJustificationType(Justification::centred);
     addAndMakeVisible(timeCodeLabel);
     
-    currentColumn.setFont(Font(80.f,Font::bold));
+    // set currentColumn label
+    currentColumn.setFont(Font ("Monaco", 58.f, 0));
     currentColumn.setText("currentColumn", dontSendNotification);
     currentColumn.setJustificationType(Justification::centred);
     addAndMakeVisible(currentColumn);
+    
+    testSlider.setRange(0.f, 1.f);
+    testSlider.setSliderStyle(Slider::LinearHorizontal);
+    testSlider.setTextBoxStyle(Slider::NoTextBox, false, 0, 0);
+    addAndMakeVisible(testSlider);
     
     // OSC send connecter
     sender.connect("127.0.0.1", 7000);
@@ -54,13 +60,18 @@ void MainComponent::paint (Graphics& g)
 
 void MainComponent::resized()
 {
-    int objectSize = getWidth()-100;
+    int distance = 50;
+    int objectSize = getWidth()-200;
     
-    timeCodeLabel.setBounds((getWidth()/2)-(objectSize/2),
-                            (getHeight()/2)-(objectSize/2)-50,
+    timeCodeLabel.setBounds ((getWidth()/2)-(objectSize/2),
+                            (getHeight()/2)-(objectSize/2)-distance,
                             objectSize, objectSize);
-    currentColumn.setBounds((getWidth()/2)-(objectSize/2),
-                            (getHeight()/2)-(objectSize/2)+50,
+    currentColumn.setBounds ((getWidth()/2)-(objectSize/2),
+                            (getHeight()/2)-(objectSize/2)+100,
                             objectSize, objectSize);
+    testSlider.setBounds    ((getWidth()/2)-(objectSize/2),
+                            (getHeight()/2)-(objectSize/2)+25,
+                            objectSize, objectSize);
+    
     
 }
