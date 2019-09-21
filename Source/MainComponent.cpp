@@ -64,8 +64,8 @@ MainComponent::MainComponent()
     // add OSC listener
     // addListener(this, "/juce/knopjeReceive");
     
-    addListener(this, "/fake/resolume/adress1");
-    addListener(this, "/fake/resolume/adress2");
+    addListener(this, tcInputAddress1.c_str());
+    addListener(this, tcInputAddress2.c_str());
     
     // other juce stuff
     setSize (900, 400);

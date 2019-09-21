@@ -41,8 +41,9 @@ private:
     void oscMessageReceived (const OSCMessage& message) override
     {
         string receivedAddress = message.getAddressPattern().toString().toStdString().c_str();
+        
         {
-            int value = tcUpdater(message, receivedAddress, "/fake/resolume/adress1", 1);
+            int value = tcTriggerCreator(message, receivedAddress, tcInputAddress1, 1);
             static int oldValue = value;
             if (value != oldValue)
             {
@@ -51,7 +52,7 @@ private:
             }
         }
         {
-            int value = tcUpdater(message, receivedAddress, "/fake/resolume/adress2", 2);
+            int value = tcTriggerCreator(message, receivedAddress, tcInputAddress2, 2);
             static int oldValue = value;
             if (value != oldValue)
             {
@@ -61,20 +62,20 @@ private:
         }
     }
     
-    int tcUpdater(const OSCMessage& message, string receivedAddress, string checkAddress,int tcNumber)
+    // this function handles everything timecode related for 2 incomming timecode signals and returns a trigger index for each of the 2 timecode inputs
+    int tcTriggerCreator(const OSCMessage& message, string receivedAddress, string checkAddress,int tcNumber)
     {
         const char * address1 = receivedAddress.c_str();
         const char * address1Set = checkAddress.c_str();
         int strncmpResult = strncmp(address1, address1Set, checkAddress.length());
         if (strncmpResult == 0)
         {
-            
             if (tcNumber == 1)
                 timeCodeLabel1.setText(message[0].getString(), dontSendNotification);
             else if (tcNumber == 2)
                 timeCodeLabel2.setText(message[0].getString(), dontSendNotification);
             
-            for (int i=0;i<100;i++)
+            for (int i=0;i<144;i++)
             {
                 const char * str1 = message[0].getString().toStdString().c_str();
                 const char * str2 = timecodeList.timeCodeArray10min[i].c_str();
@@ -102,19 +103,19 @@ private:
             
             if (tcNumber == 1)
             {
-                timecodeSlider1.setValue(tcTrigger1/72.f);
+                timecodeSlider1.setValue(tcTrigger1/144.f);
                 timeCodeLabel1.setColour(Label::textColourId,
-                                         Colour::fromHSV(tcTrigger1/72.f*0.4+0.1, 1.f, 1.f, 1.f));
+                                         Colour::fromHSV(tcTrigger1/144.f*0.4+0.1, 1.f, 1.f, 1.f));
                 timecodeSlider1.setColour(Slider::thumbColourId,
-                                          Colour::fromHSV(tcTrigger1/72.f*0.4+0.1, 1.f, 1.f, 1.f));
+                                          Colour::fromHSV(tcTrigger1/144.f*0.4+0.1, 1.f, 1.f, 1.f));
             }
             else if (tcNumber == 2)
             {
-                timecodeSlider2.setValue(tcTrigger2/72.f);
+                timecodeSlider2.setValue(tcTrigger2/144.f);
                 timeCodeLabel2.setColour(Label::textColourId,
-                                         Colour::fromHSV(tcTrigger2/72.f*0.4+0.1, 1.f, 1.f, 1.f));
+                                         Colour::fromHSV(tcTrigger2/144.f*0.4+0.1, 1.f, 1.f, 1.f));
                 timecodeSlider2.setColour(Slider::thumbColourId,
-                                          Colour::fromHSV(tcTrigger2/72.f*0.4+0.1, 1.f, 1.f, 1.f));
+                                          Colour::fromHSV(tcTrigger2/144.f*0.4+0.1, 1.f, 1.f, 1.f));
             }
         }
         if (tcNumber == 1)
@@ -125,6 +126,10 @@ private:
             return 0;
     }
   
+    string tcInputAddress1 = "/fake/resolume/adress1";
+    string tcInputAddress2 = "/fake/resolume/adress2";
+    
+    
     Slider timecodeSlider1;
     Slider timecodeSlider2;
     Label timeCodeLabel1;
@@ -133,6 +138,7 @@ private:
     Label tcTriggerLabel2;
     TimecodeList timecodeList;
     OSCSender sender;
+    
     float tcTrigger1;
     float tcTrigger2;
     
