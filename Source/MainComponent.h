@@ -118,7 +118,6 @@ private:
             }
         }
         if (tcNumber == 1)
-            //sender.send("/max/triggercolumn1",tcTrigger1);
             return tcTrigger1;
         else if (tcNumber == 2)
             return tcTrigger2;

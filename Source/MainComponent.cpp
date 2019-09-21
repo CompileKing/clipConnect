@@ -68,7 +68,7 @@ MainComponent::MainComponent()
     addListener(this, "/fake/resolume/adress2");
     
     // other juce stuff
-    setSize (800, 400);
+    setSize (900, 400);
 }
 
 MainComponent::~MainComponent()
@@ -79,37 +79,47 @@ MainComponent::~MainComponent()
 void MainComponent::paint (Graphics& g)
 {
     g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
+    g.setColour(Colours::black);
+    g.drawLine(getWidth()/2.f, 0, getWidth()/2.f, getHeight());
     //g.fillAll (Colour::fromHSV(0.3f, 0.2f, 0.2, 1.f));
 }
 
 void MainComponent::resized()
 {
     int distance = 50;
-    int objectSize = getWidth()-200;
+    int objectSize = getWidth()-320;
+    int sliderSize = getWidth()/4;
+    int edgeDistance = getWidth()/4;
     
-    timeCodeLabel1.setBounds ((getWidth()/2)-(objectSize/2)-(getWidth()/2.f)+200,
-                            (getHeight()/2)-(objectSize/2)-distance,
-                            objectSize, objectSize);
-    tcTriggerLabel1.setBounds ((getWidth()/2)-(objectSize/2)-(getWidth()/2.f)+200,
-                            (getHeight()/2)-(objectSize/2)+100,
-                            objectSize, objectSize);
-/*
-    timecodeSlider1.setBounds    ((getWidth()/2)-(objectSize/2)-(getWidth()/2.f)+200,
-                            (getHeight()/2)-(objectSize/2)+25,
-                            objectSize, objectSize);
- */
+    timeCodeLabel1.setBounds    ((getWidth()/2)-(objectSize/2)-(getWidth()/2.f)+edgeDistance,
+                                (getHeight()/2)-(objectSize/2)-distance,
+                                objectSize, objectSize);
+    
+    tcTriggerLabel1.setBounds   ((getWidth()/2)-(objectSize/2)-(getWidth()/2.f)+edgeDistance,
+                                (getHeight()/2)-(objectSize/2)+100,
+                                objectSize, objectSize);
+    
+    timecodeSlider1.setBounds   ((getWidth()/2)-(sliderSize/2)-(getWidth()/2.f)+edgeDistance,
+                                (getHeight()/2)-(sliderSize/2)+25,
+                                sliderSize, sliderSize);
+    
  
-    timeCodeLabel2.setBounds ((getWidth()/2)-(objectSize/2)+(getWidth()/2.f)-200,
-                              (getHeight()/2)-(objectSize/2)-distance,
-                              objectSize, objectSize);
-    tcTriggerLabel2.setBounds ((getWidth()/2)-(objectSize/2)+(getWidth()/2.f)-200,
-                               (getHeight()/2)-(objectSize/2)+100,
-                               objectSize, objectSize);
-    /*
-     timecodeSlider1.setBounds    ((getWidth()/2)-(objectSize/2)-(getWidth()/2.f)+200,
-     (getHeight()/2)-(objectSize/2)+25,
-     objectSize, objectSize);
-     */
+    ////////////////////////////////////////////////////////////////////////////////////////
+    
+ 
+    timeCodeLabel2.setBounds    ((getWidth()/2)-(objectSize/2)+(getWidth()/2.f)-edgeDistance,
+                                (getHeight()/2)-(objectSize/2)-distance,
+                                objectSize, objectSize);
+    tcTriggerLabel2.setBounds   ((getWidth()/2)-(objectSize/2)+(getWidth()/2.f)-edgeDistance,
+                                (getHeight()/2)-(objectSize/2)+100,
+                                objectSize, objectSize);
+    
+    timecodeSlider2.setBounds   ((getWidth()/2)-(sliderSize/2)+(getWidth()/2.f)-edgeDistance,
+                                (getHeight()/2)-(sliderSize/2)+25,
+                                sliderSize, sliderSize);
+    
+    repaint();
+     
     
     
 }
