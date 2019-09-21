@@ -16,7 +16,7 @@ using namespace std;
 class TimecodeList
 {
 public:
-    string timeCodeArray[100] = {
+    string timeCodeArray10min[100] = {
         "00:00:00",
         "00:10:00",
         "00:20:00",

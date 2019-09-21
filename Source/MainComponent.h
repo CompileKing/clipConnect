@@ -45,19 +45,28 @@ private:
         {
             timeCodeLabel.setText(message[0].getString(), dontSendNotification);
 
+            // check the whole timecode lookup table array for matches
             for (int i=0;i<100;i++)
             {
                 const char * str1 = message[0].getString().toStdString().c_str();
-                const char * str2 = timecodeList.timeCodeArray[i].c_str();
+                const char * str2 = timecodeList.timeCodeArray10min[i].c_str();
                 int strncmpResult = strncmp(str1, str2, 4);
                 if (strncmpResult == 0)
                 {
                     String timeCodeLabelString = "current column: " + to_string(i);
                     currentColumn.setText(timeCodeLabelString, dontSendNotification);
                     currentColumnIndex = i;
-                    sender.send("/max/triggercolumn",i);
                 }
             }
+            // only send a value when the new value is different from the old.
+            int value = currentColumnIndex;
+            static int oldValue = value;
+            if (value != oldValue)
+            {
+                sender.send("/max/triggercolumn",currentColumnIndex);
+                oldValue = value;
+            }
+            
             timeCodeLabel.setColour(Label::textColourId,
                                     Colour::fromHSV(currentColumnIndex/72.f*0.4+0.1, 1.f, 1.f, 1.f));
             testSlider.setValue(currentColumnIndex/72.f);

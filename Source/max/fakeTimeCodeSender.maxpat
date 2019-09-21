@@ -45,7 +45,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 312.0, 240.0, 135.0, 22.0 ],
-					"text" : "/max/triggercolumn 0"
+					"text" : "/max/triggercolumn 0."
 				}
 
 			}
@@ -125,6 +125,8 @@
 				"box" : 				{
 					"id" : "obj-80",
 					"maxclass" : "number",
+					"maximum" : 59,
+					"minimum" : 0,
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
@@ -137,6 +139,8 @@
 				"box" : 				{
 					"id" : "obj-78",
 					"maxclass" : "number",
+					"maximum" : 59,
+					"minimum" : 0,
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
@@ -149,6 +153,8 @@
 				"box" : 				{
 					"id" : "obj-76",
 					"maxclass" : "number",
+					"maximum" : 23,
+					"minimum" : 0,
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
