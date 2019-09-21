@@ -15,21 +15,42 @@ MainComponent::MainComponent()
     
 
     // set timecode label
-    timeCodeLabel.setFont(Font ("Monaco", 130.f, 0));
-    timeCodeLabel.setText("00:00:00", dontSendNotification);
-    timeCodeLabel.setJustificationType(Justification::centred);
-    addAndMakeVisible(timeCodeLabel);
+    timeCodeLabel1.setFont(Font ("Monaco", 130.f/2.f, 0));
+    timeCodeLabel1.setText("00:00:00", dontSendNotification);
+    timeCodeLabel1.setJustificationType(Justification::centred);
+    addAndMakeVisible(timeCodeLabel1);
     
-    // set currentColumn label
-    currentColumn.setFont(Font ("Monaco", 58.f, 0));
-    currentColumn.setText("currentColumn", dontSendNotification);
-    currentColumn.setJustificationType(Justification::centred);
-    addAndMakeVisible(currentColumn);
+    // set tcTriggerLabel1 label
+    tcTriggerLabel1.setFont(Font ("Monaco", 58.f/2.f, 0));
+    tcTriggerLabel1.setText("tcTriggerLabel1", dontSendNotification);
+    tcTriggerLabel1.setJustificationType(Justification::centred);
+    addAndMakeVisible(tcTriggerLabel1);
     
+    //set timecode slider1
     timecodeSlider1.setRange(0.f, 1.f);
     timecodeSlider1.setSliderStyle(Slider::LinearHorizontal);
     timecodeSlider1.setTextBoxStyle(Slider::NoTextBox, false, 0, 0);
     addAndMakeVisible(timecodeSlider1);
+    
+    ///////////////////////////////////////////////////////////////////////
+    
+    // set timecode label2
+    timeCodeLabel2.setFont(Font ("Monaco", 130.f/2.f, 0));
+    timeCodeLabel2.setText("00:00:00", dontSendNotification);
+    timeCodeLabel2.setJustificationType(Justification::centred);
+    addAndMakeVisible(timeCodeLabel2);
+    
+    // set tcTriggerLabel label2
+    tcTriggerLabel2.setFont(Font ("Monaco", 58.f/2.f, 0));
+    tcTriggerLabel2.setText("tcTriggerLabel2", dontSendNotification);
+    tcTriggerLabel2.setJustificationType(Justification::centred);
+    addAndMakeVisible(tcTriggerLabel2);
+    
+    //set timecode slider1
+    timecodeSlider2.setRange(0.f, 1.f);
+    timecodeSlider2.setSliderStyle(Slider::LinearHorizontal);
+    timecodeSlider2.setTextBoxStyle(Slider::NoTextBox, false, 0, 0);
+    addAndMakeVisible(timecodeSlider2);
     
     // OSC send connecter
     sender.connect("127.0.0.1", 7000);
@@ -66,15 +87,29 @@ void MainComponent::resized()
     int distance = 50;
     int objectSize = getWidth()-200;
     
-    timeCodeLabel.setBounds ((getWidth()/2)-(objectSize/2),
+    timeCodeLabel1.setBounds ((getWidth()/2)-(objectSize/2)-(getWidth()/2.f)+200,
                             (getHeight()/2)-(objectSize/2)-distance,
                             objectSize, objectSize);
-    currentColumn.setBounds ((getWidth()/2)-(objectSize/2),
+    tcTriggerLabel1.setBounds ((getWidth()/2)-(objectSize/2)-(getWidth()/2.f)+200,
                             (getHeight()/2)-(objectSize/2)+100,
                             objectSize, objectSize);
-    timecodeSlider1.setBounds    ((getWidth()/2)-(objectSize/2),
+/*
+    timecodeSlider1.setBounds    ((getWidth()/2)-(objectSize/2)-(getWidth()/2.f)+200,
                             (getHeight()/2)-(objectSize/2)+25,
                             objectSize, objectSize);
+ */
+ 
+    timeCodeLabel2.setBounds ((getWidth()/2)-(objectSize/2)+(getWidth()/2.f)-200,
+                              (getHeight()/2)-(objectSize/2)-distance,
+                              objectSize, objectSize);
+    tcTriggerLabel2.setBounds ((getWidth()/2)-(objectSize/2)+(getWidth()/2.f)-200,
+                               (getHeight()/2)-(objectSize/2)+100,
+                               objectSize, objectSize);
+    /*
+     timecodeSlider1.setBounds    ((getWidth()/2)-(objectSize/2)-(getWidth()/2.f)+200,
+     (getHeight()/2)-(objectSize/2)+25,
+     objectSize, objectSize);
+     */
     
     
 }
