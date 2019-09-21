@@ -26,10 +26,10 @@ MainComponent::MainComponent()
     currentColumn.setJustificationType(Justification::centred);
     addAndMakeVisible(currentColumn);
     
-    testSlider.setRange(0.f, 1.f);
-    testSlider.setSliderStyle(Slider::LinearHorizontal);
-    testSlider.setTextBoxStyle(Slider::NoTextBox, false, 0, 0);
-    addAndMakeVisible(testSlider);
+    timecodeSlider1.setRange(0.f, 1.f);
+    timecodeSlider1.setSliderStyle(Slider::LinearHorizontal);
+    timecodeSlider1.setTextBoxStyle(Slider::NoTextBox, false, 0, 0);
+    addAndMakeVisible(timecodeSlider1);
     
     // OSC send connecter
     sender.connect("127.0.0.1", 7000);
@@ -42,10 +42,12 @@ MainComponent::MainComponent()
     
     // add OSC listener
     // addListener(this, "/juce/knopjeReceive");
-    addListener(this, "/fake/resolume/adress");
+    
+    addListener(this, "/fake/resolume/adress1");
+    addListener(this, "/fake/resolume/adress2");
     
     // other juce stuff
-    setSize (600, 400);
+    setSize (800, 400);
 }
 
 MainComponent::~MainComponent()
@@ -70,7 +72,7 @@ void MainComponent::resized()
     currentColumn.setBounds ((getWidth()/2)-(objectSize/2),
                             (getHeight()/2)-(objectSize/2)+100,
                             objectSize, objectSize);
-    testSlider.setBounds    ((getWidth()/2)-(objectSize/2),
+    timecodeSlider1.setBounds    ((getWidth()/2)-(objectSize/2),
                             (getHeight()/2)-(objectSize/2)+25,
                             objectSize, objectSize);
     
