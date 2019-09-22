@@ -2581,6 +2581,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\media\SMPTE1.png"/>
+    <None Include="..\..\media\SMPTE2Transparent.png"/>
+    <None Include="..\..\media\SMPTE1Transparent.png"/>
     <None Include="..\..\media\SMPTE2.png"/>
     <None Include="C:\JUCE\modules\juce_audio_formats\codecs\flac\Flac Licence.txt"/>
     <None Include="C:\JUCE\modules\juce_audio_formats\codecs\oggvorbis\Ogg Vorbis Licence.txt"/>

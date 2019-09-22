@@ -12,21 +12,17 @@ using namespace std;
 //==============================================================================
 MainComponent::MainComponent()
 {
-    // set label1
-    Label1.setFont(Font ("Monaco", 60.f/2.f, 0));
-    Label1.setText("TC1", dontSendNotification);
-    Label1.setJustificationType(Justification::centred);
-    addAndMakeVisible(Label1);
+
 
     // set timecode label
     timeCodeLabel1.setFont(Font ("Monaco", 130.f/2.f, 0));
-    timeCodeLabel1.setText("00:00:00", dontSendNotification);
+    timeCodeLabel1.setText("00:00:00:00", dontSendNotification);
     timeCodeLabel1.setJustificationType(Justification::centred);
     addAndMakeVisible(timeCodeLabel1);
 
     // set tcTriggerLabel1 label
-    tcTriggerLabel1.setFont(Font ("Monaco", 58.f/2.f, 0));
-    tcTriggerLabel1.setText("tcTriggerLabel1", dontSendNotification);
+    tcTriggerLabel1.setFont(Font ("Monaco", 130.f/2.f, 0));
+    tcTriggerLabel1.setText("0", dontSendNotification);
     tcTriggerLabel1.setJustificationType(Justification::centred);
     addAndMakeVisible(tcTriggerLabel1);
     
@@ -37,22 +33,16 @@ MainComponent::MainComponent()
     addAndMakeVisible(timecodeSlider1);
     
     ///////////////////////////////////////////////////////////////////////
-    
-    // set label2
-    Label2.setFont(Font ("Monaco", 60.f/2.f, 0));
-    Label2.setText("TC2", dontSendNotification);
-    Label2.setJustificationType(Justification::centred);
-    addAndMakeVisible(Label2);
-    
+
     // set timecode label2
     timeCodeLabel2.setFont(Font ("Monaco", 130.f/2.f, 0));
-    timeCodeLabel2.setText("00:00:00", dontSendNotification);
+    timeCodeLabel2.setText("00:00:00:00", dontSendNotification);
     timeCodeLabel2.setJustificationType(Justification::centred);
     addAndMakeVisible(timeCodeLabel2);
     
     // set tcTriggerLabel label2
-    tcTriggerLabel2.setFont(Font ("Monaco", 58.f/2.f, 0));
-    tcTriggerLabel2.setText("tcTriggerLabel2", dontSendNotification);
+    tcTriggerLabel2.setFont(Font ("Monaco", 130.f/2.f, 0));
+    tcTriggerLabel2.setText("0", dontSendNotification);
     tcTriggerLabel2.setJustificationType(Justification::centred);
     addAndMakeVisible(tcTriggerLabel2);
     
@@ -89,54 +79,68 @@ MainComponent::~MainComponent()
 void MainComponent::paint (Graphics& g)
 {
     g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
-    g.setColour(Colours::black);
-    g.drawLine(getWidth()/2.f, 0, getWidth()/2.f, getHeight());
-    //g.fillAll (Colour::fromHSV(0.3f, 0.2f, 0.2, 1.f));
+    g.setColour(Colour::fromRGBA(0, 0, 0, 40));
+    g.drawLine(getWidth()/2.f, 0, getWidth()/2.f, getHeight(),5.f);
+    
+    int yOffset = 0;
+    int imageOffset = -80;
+    int objectSize = 60;
+    int edgeDistance = getWidth()/4;
+    g.setColour(Colour::fromRGBA(0, 0, 0, 255));
+
+    Rectangle<float> smpteImageRect1 ((getWidth()/2)-(objectSize/2)-(getWidth()/2.f)+edgeDistance,
+                                    (getHeight()/2)-(objectSize/2)+yOffset+imageOffset,
+                                    objectSize,
+                                    objectSize);
+    g.drawImage(smpte1image, smpteImageRect1);
+    
+    Rectangle<float> smpteImageRect2 ((getWidth()/2)-(objectSize/2)+(getWidth()/2.f)-edgeDistance,
+                                      (getHeight()/2)-(objectSize/2)+yOffset+imageOffset,
+                                      objectSize,
+                                      objectSize);
+    g.drawImage(smpte2image, smpteImageRect2);
+
 }
 
 void MainComponent::resized()
 {
-    int distance = 50;
-    int objectSize = getWidth()-320;
-    int sliderSize = getWidth()/4;
-    int edgeDistance = getWidth()/4;
     
-    Label1.setBounds    ((getWidth()/2)-(objectSize/2)-(getWidth()/2.f)+edgeDistance-147,
-                                 (getHeight()/2)-(objectSize/2)-distance-60,
-                                 objectSize, objectSize);
+    int yOffset = 0;
+    int triggerLabelOffset = 100;
+    int timecodeSliderOffset = 50;
+    int objectSize = getWidth()-320;
+    int edgeDistance = getWidth()/4;
+    int sliderSize = getWidth()/4;
+    
+
     
     timeCodeLabel1.setBounds    ((getWidth()/2)-(objectSize/2)-(getWidth()/2.f)+edgeDistance,
-                                (getHeight()/2)-(objectSize/2)-distance,
+                                (getHeight()/2)-(objectSize/2)+yOffset,
                                 objectSize, objectSize);
     
     tcTriggerLabel1.setBounds   ((getWidth()/2)-(objectSize/2)-(getWidth()/2.f)+edgeDistance,
-                                (getHeight()/2)-(objectSize/2)+100,
+                                (getHeight()/2)-(objectSize/2)+yOffset+triggerLabelOffset,
                                 objectSize, objectSize);
     
     timecodeSlider1.setBounds   ((getWidth()/2)-(sliderSize/2)-(getWidth()/2.f)+edgeDistance,
-                                (getHeight()/2)-(sliderSize/2)+25,
+                                (getHeight()/2)-(sliderSize/2)+yOffset+timecodeSliderOffset,
                                 sliderSize, sliderSize);
     
- 
-    ////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
     
- 
-    Label2.setBounds            ((getWidth()/2)-(objectSize/2)+(getWidth()/2.f)-edgeDistance-147,
-                                (getHeight()/2)-(objectSize/2)-distance-60,
-                                objectSize, objectSize);
-    
+
     timeCodeLabel2.setBounds    ((getWidth()/2)-(objectSize/2)+(getWidth()/2.f)-edgeDistance,
-                                (getHeight()/2)-(objectSize/2)-distance,
+                                (getHeight()/2)-(objectSize/2)+yOffset,
                                 objectSize, objectSize);
     tcTriggerLabel2.setBounds   ((getWidth()/2)-(objectSize/2)+(getWidth()/2.f)-edgeDistance,
-                                (getHeight()/2)-(objectSize/2)+100,
+                                (getHeight()/2)-(objectSize/2)+yOffset+triggerLabelOffset,
                                 objectSize, objectSize);
     
     timecodeSlider2.setBounds   ((getWidth()/2)-(sliderSize/2)+(getWidth()/2.f)-edgeDistance,
-                                (getHeight()/2)-(sliderSize/2)+25,
+                                (getHeight()/2)-(sliderSize/2)+yOffset+timecodeSliderOffset,
                                 sliderSize, sliderSize);
     
-    repaint();
+    
      
     
     

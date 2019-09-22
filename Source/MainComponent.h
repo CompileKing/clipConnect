@@ -82,7 +82,7 @@ private:
                 int strncmpResult = strncmp(str1, str2, 4);
                 if (strncmpResult == 0)
                 {
-                    String timeCodeLabelString = "current column: " + to_string(i);
+                    String timeCodeLabelString = to_string(i);
                     if (tcNumber == 1)
                         tcTriggerLabel1.setText(timeCodeLabelString, dontSendNotification);
                     else if (tcNumber == 2)
@@ -100,26 +100,30 @@ private:
             else if (tcNumber == 2)
                 value = tcTrigger2;
     
+            float triggerLabelColourOffset = 0.13;
+            float colourOffset = 0.1;
             
             if (tcNumber == 1)
             {
                 timecodeSlider1.setValue(tcTrigger1/144.f);
                 timeCodeLabel1.setColour(Label::textColourId,
-                                         Colour::fromHSV(tcTrigger1/144.f*0.4+0.1, 1.f, 1.f, 1.f));
+                                         Colour::fromHSV(tcTrigger1/144.f*0.4+colourOffset, 1.f, 1.f, 1.f));
+                tcTriggerLabel1.setColour(Label::textColourId,
+                                         Colour::fromHSV(tcTrigger1/144.f*0.4+triggerLabelColourOffset, 1.f, 1.f, 1.f));
                 timecodeSlider1.setColour(Slider::thumbColourId,
-                                          Colour::fromHSV(tcTrigger1/144.f*0.4+0.1, 1.f, 1.f, 1.f));
-                Label1.setColour(Label::textColourId,
-                                          Colour::fromHSV(tcTrigger1/144.f*0.4+0.1, 1.f, 1.f, 1.f));
+                                          Colour::fromHSV(tcTrigger1/144.f*0.4+colourOffset, 1.f, 1.f, 1.f));
+                
             }
             else if (tcNumber == 2)
             {
                 timecodeSlider2.setValue(tcTrigger2/144.f);
                 timeCodeLabel2.setColour(Label::textColourId,
-                                         Colour::fromHSV(tcTrigger2/144.f*0.4+0.1, 1.f, 1.f, 1.f));
+                                         Colour::fromHSV(tcTrigger2/144.f*0.4+colourOffset, 1.f, 1.f, 1.f));
+                tcTriggerLabel2.setColour(Label::textColourId,
+                                          Colour::fromHSV(tcTrigger2/144.f*0.4+triggerLabelColourOffset, 1.f, 1.f, 1.f));
                 timecodeSlider2.setColour(Slider::thumbColourId,
-                                          Colour::fromHSV(tcTrigger2/144.f*0.4+0.1, 1.f, 1.f, 1.f));
-                Label2.setColour(Label::textColourId,
-                                 Colour::fromHSV(tcTrigger2/144.f*0.4+0.1, 1.f, 1.f, 1.f));
+                                          Colour::fromHSV(tcTrigger2/144.f*0.4+colourOffset, 1.f, 1.f, 1.f));
+                
             }
         }
         if (tcNumber == 1)
@@ -130,14 +134,12 @@ private:
             return 0;
     }
   
-    string tcInputAddress1 = "/fake/resolume/adress1";
-    string tcInputAddress2 = "/fake/resolume/adress2";
+    string tcInputAddress1 = "/smptecontroller/smpte1";
+    string tcInputAddress2 = "/smptecontroller/smpte2";
     
     
     Slider timecodeSlider1;
     Slider timecodeSlider2;
-    Label Label1;
-    Label Label2;
     Label timeCodeLabel1;
     Label timeCodeLabel2;
     Label tcTriggerLabel1;
@@ -145,8 +147,25 @@ private:
     TimecodeList timecodeList;
     OSCSender sender;
     
+    Image smpte1image = ImageCache::getFromMemory (BinaryData::SMPTE1_png, BinaryData::SMPTE1_pngSize);
+    Image smpte2image = ImageCache::getFromMemory (BinaryData::SMPTE2_png, BinaryData::SMPTE2_pngSize);
+    
     float tcTrigger1;
     float tcTrigger2;
+    
+    LookAndFeel_V4 arenaLAF;
+    Colour arenaBrightGreen = Colour::fromRGB(133,254,211);
+    Colour arenaLessGreen = Colour::fromRGB(79, 139, 117);
+    Colour arenaLessPink = Colour::fromRGB(145,84,144);
+    Colour arenaTopGrey = Colour::fromRGB(58,58,57);
+    Colour arenaMidGrey = Colour::fromRGB(42,42,42);
+    Colour arenaBottomGrey = Colour::fromRGB(25,25,25);
+    Colour arenaDeepGrey = Colour::fromRGB(15,15,15);
+    
+    /*
+     print: /smptecontroller/smpte1 00:00:25.08
+     print: /smptecontroller/smpte2 00:00:25.08
+     */
     
     
     

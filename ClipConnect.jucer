@@ -24,6 +24,10 @@
     </GROUP>
     <GROUP id="{3F3A4746-0416-93B1-8DAB-5F69DE525083}" name="media">
       <FILE id="zkuy1s" name="SMPTE1.png" compile="0" resource="1" file="media/SMPTE1.png"/>
+      <FILE id="UJGCWB" name="SMPTE2Transparent.png" compile="0" resource="1"
+            file="media/SMPTE2Transparent.png"/>
+      <FILE id="A7i2F5" name="SMPTE1Transparent.png" compile="0" resource="1"
+            file="media/SMPTE1Transparent.png"/>
       <FILE id="s3FEZq" name="SMPTE2.png" compile="0" resource="1" file="media/SMPTE2.png"/>
     </GROUP>
   </MAINGROUP>

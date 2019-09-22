@@ -11,11 +11,17 @@ namespace BinaryData
     extern const char*   SMPTE1_png;
     const int            SMPTE1_pngSize = 11067;
 
+    extern const char*   SMPTE2Transparent_png;
+    const int            SMPTE2Transparent_pngSize = 16742;
+
+    extern const char*   SMPTE1Transparent_png;
+    const int            SMPTE1Transparent_pngSize = 12694;
+
     extern const char*   SMPTE2_png;
     const int            SMPTE2_pngSize = 14006;
 
     // Number of elements in the namedResourceList and originalFileNames arrays.
-    const int namedResourceListSize = 2;
+    const int namedResourceListSize = 4;
 
     // Points to the start of a list of resource names.
     extern const char* namedResourceList[];

@@ -4376,6 +4376,12 @@
     <None Include="..\..\media\SMPTE1.png">
       <Filter>ClipConnect\media</Filter>
     </None>
+    <None Include="..\..\media\SMPTE2Transparent.png">
+      <Filter>ClipConnect\media</Filter>
+    </None>
+    <None Include="..\..\media\SMPTE1Transparent.png">
+      <Filter>ClipConnect\media</Filter>
+    </None>
     <None Include="..\..\media\SMPTE2.png">
       <Filter>ClipConnect\media</Filter>
     </None>
