@@ -12,14 +12,18 @@ using namespace std;
 //==============================================================================
 MainComponent::MainComponent()
 {
-    
+    // set label1
+    Label1.setFont(Font ("Monaco", 60.f/2.f, 0));
+    Label1.setText("TC1", dontSendNotification);
+    Label1.setJustificationType(Justification::centred);
+    addAndMakeVisible(Label1);
 
     // set timecode label
     timeCodeLabel1.setFont(Font ("Monaco", 130.f/2.f, 0));
     timeCodeLabel1.setText("00:00:00", dontSendNotification);
     timeCodeLabel1.setJustificationType(Justification::centred);
     addAndMakeVisible(timeCodeLabel1);
-    
+
     // set tcTriggerLabel1 label
     tcTriggerLabel1.setFont(Font ("Monaco", 58.f/2.f, 0));
     tcTriggerLabel1.setText("tcTriggerLabel1", dontSendNotification);
@@ -33,6 +37,12 @@ MainComponent::MainComponent()
     addAndMakeVisible(timecodeSlider1);
     
     ///////////////////////////////////////////////////////////////////////
+    
+    // set label2
+    Label2.setFont(Font ("Monaco", 60.f/2.f, 0));
+    Label2.setText("TC2", dontSendNotification);
+    Label2.setJustificationType(Justification::centred);
+    addAndMakeVisible(Label2);
     
     // set timecode label2
     timeCodeLabel2.setFont(Font ("Monaco", 130.f/2.f, 0));
@@ -91,6 +101,10 @@ void MainComponent::resized()
     int sliderSize = getWidth()/4;
     int edgeDistance = getWidth()/4;
     
+    Label1.setBounds    ((getWidth()/2)-(objectSize/2)-(getWidth()/2.f)+edgeDistance-147,
+                                 (getHeight()/2)-(objectSize/2)-distance-60,
+                                 objectSize, objectSize);
+    
     timeCodeLabel1.setBounds    ((getWidth()/2)-(objectSize/2)-(getWidth()/2.f)+edgeDistance,
                                 (getHeight()/2)-(objectSize/2)-distance,
                                 objectSize, objectSize);
@@ -107,6 +121,10 @@ void MainComponent::resized()
     ////////////////////////////////////////////////////////////////////////////////////////
     
  
+    Label2.setBounds            ((getWidth()/2)-(objectSize/2)+(getWidth()/2.f)-edgeDistance-147,
+                                (getHeight()/2)-(objectSize/2)-distance-60,
+                                objectSize, objectSize);
+    
     timeCodeLabel2.setBounds    ((getWidth()/2)-(objectSize/2)+(getWidth()/2.f)-edgeDistance,
                                 (getHeight()/2)-(objectSize/2)-distance,
                                 objectSize, objectSize);

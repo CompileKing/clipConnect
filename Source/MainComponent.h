@@ -108,6 +108,8 @@ private:
                                          Colour::fromHSV(tcTrigger1/144.f*0.4+0.1, 1.f, 1.f, 1.f));
                 timecodeSlider1.setColour(Slider::thumbColourId,
                                           Colour::fromHSV(tcTrigger1/144.f*0.4+0.1, 1.f, 1.f, 1.f));
+                Label1.setColour(Label::textColourId,
+                                          Colour::fromHSV(tcTrigger1/144.f*0.4+0.1, 1.f, 1.f, 1.f));
             }
             else if (tcNumber == 2)
             {
@@ -116,6 +118,8 @@ private:
                                          Colour::fromHSV(tcTrigger2/144.f*0.4+0.1, 1.f, 1.f, 1.f));
                 timecodeSlider2.setColour(Slider::thumbColourId,
                                           Colour::fromHSV(tcTrigger2/144.f*0.4+0.1, 1.f, 1.f, 1.f));
+                Label2.setColour(Label::textColourId,
+                                 Colour::fromHSV(tcTrigger2/144.f*0.4+0.1, 1.f, 1.f, 1.f));
             }
         }
         if (tcNumber == 1)
@@ -132,6 +136,8 @@ private:
     
     Slider timecodeSlider1;
     Slider timecodeSlider2;
+    Label Label1;
+    Label Label2;
     Label timeCodeLabel1;
     Label timeCodeLabel2;
     Label tcTriggerLabel1;

@@ -14,6 +14,9 @@
     <Filter Include="ClipConnect\Pugi">
       <UniqueIdentifier>{896D798C-3B2E-460F-80D7-0AC06F8E2F05}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ClipConnect\media">
+      <UniqueIdentifier>{F8781CD2-A548-7D86-97A7-B6765DB7FBBB}</UniqueIdentifier>
+    </Filter>
     <Filter Include="ClipConnect">
       <UniqueIdentifier>{09FC9EF8-3273-144D-D241-2BC5E51AC4F2}</UniqueIdentifier>
     </Filter>
@@ -2257,6 +2260,9 @@
     <ClCompile Include="C:\JUCE\modules\juce_osc\juce_osc.cpp">
       <Filter>JUCE Modules\juce_osc</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\JuceLibraryCode\BinaryData.cpp">
+      <Filter>JUCE Library Code</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_audio_basics.cpp">
       <Filter>JUCE Library Code</Filter>
     </ClCompile>
@@ -4359,11 +4365,20 @@
     <ClInclude Include="..\..\JuceLibraryCode\AppConfig.h">
       <Filter>JUCE Library Code</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\JuceLibraryCode\BinaryData.h">
+      <Filter>JUCE Library Code</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\JuceLibraryCode\JuceHeader.h">
       <Filter>JUCE Library Code</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\media\SMPTE1.png">
+      <Filter>ClipConnect\media</Filter>
+    </None>
+    <None Include="..\..\media\SMPTE2.png">
+      <Filter>ClipConnect\media</Filter>
+    </None>
     <None Include="C:\JUCE\modules\juce_audio_formats\codecs\flac\Flac Licence.txt">
       <Filter>JUCE Modules\juce_audio_formats\codecs\flac</Filter>
     </None>
