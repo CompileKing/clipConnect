@@ -40,7 +40,7 @@ private:
     
     void oscMessageReceived (const OSCMessage& message) override
     {
-        debuggLabel.setText("osc message received", dontSendNotification);
+        
         string receivedAddress = message.getAddressPattern().toString().toStdString().c_str();
         
         {
@@ -79,7 +79,8 @@ private:
             
             for (int i=0;i<144;i++)
             {
-                const char * str1 = message[0].getString().toStdString().c_str();
+                string oscMessageString = message[0].getString().toStdString();
+                const char * str1 = oscMessageString.c_str();
                 const char * str2 = timecodeList.timeCodeArray10min[i].c_str();
                 int strncmpResult = strncmp(str1, str2, 4);
                 if (strncmpResult == 0)
