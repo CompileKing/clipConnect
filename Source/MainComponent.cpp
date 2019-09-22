@@ -52,6 +52,12 @@ MainComponent::MainComponent()
     timecodeSlider2.setTextBoxStyle(Slider::NoTextBox, false, 0, 0);
     addAndMakeVisible(timecodeSlider2);
     
+    debuggLabel.setFont(Font ("Monaco", 20.f/2.f, 0));
+    debuggLabel.setText("0", dontSendNotification);
+    debuggLabel.setJustificationType(Justification::centred);
+    addAndMakeVisible(debuggLabel);
+    
+    
     // OSC send connecter
     sender.connect("127.0.0.1", 7000);
     
@@ -139,6 +145,8 @@ void MainComponent::resized()
     timecodeSlider2.setBounds   ((getWidth()/2)-(sliderSize/2)+(getWidth()/2.f)-edgeDistance,
                                 (getHeight()/2)-(sliderSize/2)+yOffset+timecodeSliderOffset,
                                 sliderSize, sliderSize);
+    
+    debuggLabel.setBounds(0, 0, getWidth(), getHeight());
     
     
      

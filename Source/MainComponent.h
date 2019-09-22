@@ -40,6 +40,7 @@ private:
     
     void oscMessageReceived (const OSCMessage& message) override
     {
+        debuggLabel.setText("osc message received", dontSendNotification);
         string receivedAddress = message.getAddressPattern().toString().toStdString().c_str();
         
         {
@@ -147,6 +148,7 @@ private:
     Label tcTriggerLabel2;
     TimecodeList timecodeList;
     OSCSender sender;
+    Label debuggLabel;
     
     Image smpte1image = ImageCache::getFromMemory (BinaryData::SMPTE1_png, BinaryData::SMPTE1_pngSize);
     Image smpte2image = ImageCache::getFromMemory (BinaryData::SMPTE2_png, BinaryData::SMPTE2_pngSize);
