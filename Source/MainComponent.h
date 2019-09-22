@@ -65,6 +65,7 @@ private:
     // this function handles everything timecode related for 2 incomming timecode signals and returns a trigger index for each of the 2 timecode inputs
     int tcTriggerCreator(const OSCMessage& message, string receivedAddress, string checkAddress,int tcNumber)
     {
+
         const char * address1 = receivedAddress.c_str();
         const char * address1Set = checkAddress.c_str();
         int strncmpResult = strncmp(address1, address1Set, checkAddress.length());
