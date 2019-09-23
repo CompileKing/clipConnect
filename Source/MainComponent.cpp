@@ -13,6 +13,7 @@ using namespace std;
 MainComponent::MainComponent()
 {
     
+    
     float timecodeLabelSize = 100;
     float triggerLabelSize = 200;
 
@@ -55,6 +56,49 @@ MainComponent::MainComponent()
     timecodeSlider2.setTextBoxStyle(Slider::NoTextBox, false, 0, 0);
     addAndMakeVisible(timecodeSlider2);
     
+    ///////////////////////////////////////////////////////////////////////
+    
+            
+    for(int i = 0; i < 16; i++)
+    {
+        TextButton* layer = new TextButton();
+        layer->setClickingTogglesState(true);
+        layer->addListener(this);
+        addAndMakeVisible(layer);
+        layerButtonsA.add(layer);
+        
+    }
+    
+    for(int i = 0; i < 16; i++)
+    {
+        TextButton* layer = new TextButton();
+        layer->setClickingTogglesState(true);
+        layer->addListener(this);
+        addAndMakeVisible(layer);
+        layerButtonsB.add(layer);
+    }
+     
+    for ( int i = 0; i < layerButtonsA.size(); i++ )
+    {
+        layerButtonsA[i]->setColour(TextButton::buttonColourId,arenaMidGrey.withAlpha(0.4f));
+        layerButtonsA[i]->setColour(TextButton::buttonOnColourId,brightOrange);
+        layerButtonsA[i]->setColour(TextButton::textColourOnId,arenaBottomGrey);
+        layerButtonsA[i]->setColour(TextButton::textColourOffId,Colours::white);
+        layerButtonsA[i]->setLookAndFeel(&LAFvar);
+        layerButtonsB[i]->setColour(TextButton::buttonColourId,arenaMidGrey.withAlpha(0.4f));
+        layerButtonsB[i]->setColour(TextButton::buttonOnColourId,brightOrange);
+        layerButtonsB[i]->setColour(TextButton::textColourOnId,arenaBottomGrey);
+        layerButtonsB[i]->setColour(TextButton::textColourOffId,Colours::white);
+        layerButtonsB[i]->setLookAndFeel(&LAFvar);
+    }
+    for (int i=0;i<layerButtonsA.size();i++)
+    {
+        string buttonLabel = to_string(i+1);
+        layerButtonsA[i]->setButtonText(buttonLabel);
+        layerButtonsB[i]->setButtonText(buttonLabel);
+    }
+    
+
     // OSC send connecter
     sender.connect("127.0.0.1", 7000);
     
@@ -63,15 +107,11 @@ MainComponent::MainComponent()
     {
         cout << "couldn't connect" << endl;
     }
-    
-    // add OSC listener
-    // addListener(this, "/juce/knopjeReceive");
-    
+
     addListener(this, tcInputAddress1.c_str());
     addListener(this, tcInputAddress2.c_str());
     
-    // other juce stuff
-    setSize (1200, 400);
+    setSize (1030, 160);
 }
 
 MainComponent::~MainComponent()
@@ -81,11 +121,12 @@ MainComponent::~MainComponent()
 //==============================================================================
 void MainComponent::paint (Graphics& g)
 {
+    //g.fillAll(backgroundGrey);
     g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
-    g.setColour(Colour::fromRGBA(0, 0, 0, 40));
+    g.setColour(Colour::fromRGBA(0, 0, 0, 100));
     g.drawLine(getWidth()/2.f, 0, getWidth()/2.f, getHeight(),5.f);
     
-    int yOffset = -100;
+    int yOffset = -50;
     int xOffset = -40;
     int imageOffset = 32;
     int imageXoffset = -180;
@@ -110,7 +151,7 @@ void MainComponent::paint (Graphics& g)
 void MainComponent::resized()
 {
     
-    int yOffset = -100;
+    int yOffset = -50;
     int xOffset = -40;
     int timecodeLabelOffset = 20;
     int triggerLabelOffset = 33;
@@ -135,7 +176,7 @@ void MainComponent::resized()
                                 sliderSize, sliderSize);
     
     ///////////////////////////////////////////////////////////////////////
-    
+        
 
     timeCodeLabel2.setBounds    ((getWidth()/2)-(objectSize/2)+(getWidth()/2.f)-edgeDistance+xOffset,
                                 (getHeight()/2)-(objectSize/2)+yOffset+timecodeLabelOffset,
@@ -147,5 +188,20 @@ void MainComponent::resized()
     timecodeSlider2.setBounds   ((getWidth()/2)-(sliderSize/2)+(getWidth()/2.f)-edgeDistance+xOffset,
                                 (getHeight()/2)-(sliderSize/2)+yOffset+timecodeSliderOffset,
                                 sliderSize, sliderSize);
+    
+        ///////////////////////////////////////////////////////////////////////
+
+    int size = 30;
+    int x = getWidth()/4-200;
+    int x2 = getWidth()/4*3-200;
+    int y = getHeight()/2+80;
+
+    for ( int i = 0; i < layerButtonsA.size(); i ++)
+    {
+        layerButtonsA[i]->setBounds(x + i * size + xOffset,y + yOffset, size, size);
+        layerButtonsB[i]->setBounds(x2 + i * size + xOffset,y + yOffset, size, size);
+    }
+    
+    
    
 }

@@ -8,6 +8,9 @@
 
 namespace BinaryData
 {
+    extern const char*   CLIP_CONNECT_V1_1_png;
+    const int            CLIP_CONNECT_V1_1_pngSize = 96847;
+
     extern const char*   SMPTE1_png;
     const int            SMPTE1_pngSize = 11067;
 
@@ -21,7 +24,7 @@ namespace BinaryData
     const int            SMPTE2_pngSize = 14006;
 
     // Number of elements in the namedResourceList and originalFileNames arrays.
-    const int namedResourceListSize = 4;
+    const int namedResourceListSize = 5;
 
     // Points to the start of a list of resource names.
     extern const char* namedResourceList[];

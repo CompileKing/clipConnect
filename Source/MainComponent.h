@@ -19,6 +19,7 @@ using namespace std;
     your controls and content.
 */
 class MainComponent   : public Component,
+                        public Button::Listener,
                         public Slider::Listener,
                         private OSCReceiver,
                         private Timer,
@@ -35,13 +36,24 @@ public:
     
     void sliderValueChanged (Slider* slider) override
     {
+        
+    }
+    void buttonClicked (Button* button) override
+    {
+        for ( int i = 0; i < layerButtonsA.size(); i++ )
+        {
+            if (button == layerButtonsA[i])
+            {
+                cout << "layerGroupA button pressed: " <<
+                layerButtonsA[i]->getButtonText() << " state: " <<
+                layerButtonsA[i]->getToggleState() << endl;
+            }
+        }
     }
     
 
 private:
-    
-    
-    
+
     void oscMessageReceived (const OSCMessage& message) override
     {
         
@@ -53,6 +65,7 @@ private:
             if (value != oldValue)
             {
                 sender.send("/max/triggercolumn1",value);
+                triggerGroupAValue = value;
                 oldValue = value;
             }
         }
@@ -62,6 +75,7 @@ private:
             if (value != oldValue)
             {
                 sender.send("/max/triggercolumn2",value);
+                triggerGroupBValue = value;
                 oldValue = value;
             }
         }
@@ -107,7 +121,7 @@ private:
             else if (tcNumber == 2)
                 value = tcTrigger2;
     
-            float triggerLabelColourOffset = 0.13;
+            float triggerLabelColourOffset = 0.1;
             float colourOffset = 0.1;
             
             if (tcNumber == 1)
@@ -132,6 +146,22 @@ private:
                                           Colour::fromHSV(tcTrigger2/144.f*0.4+colourOffset, 1.f, 1.f, 1.f));
                 
             }
+            if (tcNumber == 1)
+            {
+                for ( int i = 0; i < layerButtonsA.size(); i++ )
+                {
+                    layerButtonsA[i]->setColour(TextButton::buttonOnColourId,
+                                                Colour::fromHSV(tcTrigger1/144.f*0.4+colourOffset, 1.f, 1.f, 1.f));
+                }
+            }
+            else if (tcNumber == 2)
+            {
+                for ( int i = 0; i < layerButtonsB.size(); i++ )
+                {
+                    layerButtonsB[i]->setColour(TextButton::buttonOnColourId,
+                                                Colour::fromHSV(tcTrigger2/144.f*0.4+colourOffset, 1.f, 1.f, 1.f));
+                }
+            }
         }
         if (tcNumber == 1)
             return tcTrigger1;
@@ -139,6 +169,11 @@ private:
             return tcTrigger2;
         else
             return 0;
+    }
+    
+    void layerTrigger(int value, int layerGroup, int buttonIndex)
+    {
+        
     }
     
     void timerCallback() override
@@ -152,7 +187,6 @@ private:
     
     Slider timecodeSlider1;
     Slider timecodeSlider2;
-    
     Label timeCodeLabel1;
     Label timeCodeLabel2;
     Label tcTriggerLabel1;
@@ -167,7 +201,12 @@ private:
     float tcTrigger2;
     float elapsed = 0.0f;
     
+    int triggerGroupAValue;
+    int triggerGroupBValue;
+    
     LookAndFeel_V4 arenaLAF;
+    LookAndFeel_V3 LAFvar;
+
     Colour arenaBrightGreen = Colour::fromRGB(133,254,211);
     Colour arenaLessGreen = Colour::fromRGB(79, 139, 117);
     Colour arenaLessPink = Colour::fromRGB(145,84,144);
@@ -175,6 +214,11 @@ private:
     Colour arenaMidGrey = Colour::fromRGB(42,42,42);
     Colour arenaBottomGrey = Colour::fromRGB(25,25,25);
     Colour arenaDeepGrey = Colour::fromRGB(15,15,15);
+    Colour brightOrange = Colour::fromHSV(0.1f, 1.f, 1.f, 1.f);
+    Colour backgroundGrey = Colour::fromHSV(0.4f,0.4f,0.2,1.f);
+    
+    OwnedArray<TextButton> layerButtonsA;
+    OwnedArray<TextButton> layerButtonsB;
     
     /*
      print: /smptecontroller/smpte1 00:00:25.08
