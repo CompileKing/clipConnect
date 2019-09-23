@@ -21,6 +21,7 @@ using namespace std;
 class MainComponent   : public Component,
                         public Slider::Listener,
                         private OSCReceiver,
+                        private Timer,
                         private OSCReceiver::ListenerWithOSCAddress<OSCReceiver::MessageLoopCallback>
 {
 public:
@@ -35,8 +36,11 @@ public:
     void sliderValueChanged (Slider* slider) override
     {
     }
+    
 
 private:
+    
+    
     
     void oscMessageReceived (const OSCMessage& message) override
     {
@@ -122,7 +126,7 @@ private:
                 timecodeSlider2.setValue(tcTrigger2/144.f);
                 timeCodeLabel2.setColour(Label::textColourId,
                                          Colour::fromHSV(tcTrigger2/144.f*0.4+colourOffset, 1.f, 1.f, 1.f));
-                tcTriggerLabel2.setColour(Label::textColourId,
+                 tcTriggerLabel2.setColour(Label::textColourId,
                                           Colour::fromHSV(tcTrigger2/144.f*0.4+triggerLabelColourOffset, 1.f, 1.f, 1.f));
                 timecodeSlider2.setColour(Slider::thumbColourId,
                                           Colour::fromHSV(tcTrigger2/144.f*0.4+colourOffset, 1.f, 1.f, 1.f));
@@ -136,26 +140,32 @@ private:
         else
             return 0;
     }
+    
+    void timerCallback() override
+    {
+        repaint();
+        elapsed += 0.07f;
+    }
   
     string tcInputAddress1 = "/smptecontroller/smpte1";
     string tcInputAddress2 = "/smptecontroller/smpte2";
     
-    
     Slider timecodeSlider1;
     Slider timecodeSlider2;
+    
     Label timeCodeLabel1;
     Label timeCodeLabel2;
     Label tcTriggerLabel1;
     Label tcTriggerLabel2;
     TimecodeList timecodeList;
     OSCSender sender;
-    Label debuggLabel;
-    
+
     Image smpte1image = ImageCache::getFromMemory (BinaryData::SMPTE1_png, BinaryData::SMPTE1_pngSize);
     Image smpte2image = ImageCache::getFromMemory (BinaryData::SMPTE2_png, BinaryData::SMPTE2_pngSize);
     
     float tcTrigger1;
     float tcTrigger2;
+    float elapsed = 0.0f;
     
     LookAndFeel_V4 arenaLAF;
     Colour arenaBrightGreen = Colour::fromRGB(133,254,211);
@@ -170,9 +180,6 @@ private:
      print: /smptecontroller/smpte1 00:00:25.08
      print: /smptecontroller/smpte2 00:00:25.08
      */
-    
-    
-    
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
 };
