@@ -36,36 +36,46 @@ public:
     
     void sliderValueChanged (Slider* slider) override
     {
-        
     }
+    
     void buttonClicked (Button* button) override
     {
         for ( int i = 0; i < layerButtonsA.size(); i++ )
         {
             if (button == layerButtonsA[i])
             {
-                cout << "layerGroupA button pressed: " <<
-                layerButtonsA[i]->getButtonText() << " state: " <<
-                layerButtonsA[i]->getToggleState() << endl;
+                layerButtonsAstate[i] = layerButtonsA[i]->getToggleState();
+            }
+        }
+        for ( int i = 0; i < layerButtonsB.size(); i++ )
+        {
+            if (button == layerButtonsB[i])
+            {
+                layerButtonsBstate[i] = layerButtonsB[i]->getToggleState();
             }
         }
     }
-    
 
 private:
 
     void oscMessageReceived (const OSCMessage& message) override
     {
-        
+        // /composition/layers/1/clips/1/connect
         string receivedAddress = message.getAddressPattern().toString().toStdString().c_str();
-        
         {
             int value = tcTriggerCreator(message, receivedAddress, tcInputAddress1, 1);
             static int oldValue = value;
             if (value != oldValue)
             {
-                sender.send("/max/triggercolumn1",value);
-                triggerGroupAValue = value;
+                for ( int i = 0; i < layerButtonsA.size(); i++ )
+                {
+                    if (layerButtonsAstate[i] == 1)
+                    {
+                        string tcOscOutA = "/composition/layers/" + to_string(i+1) + "/clips/" + to_string(value) + "/connect";
+                        const char * tcOscOutAcharStar = tcOscOutA.c_str();
+                        sender.send(tcOscOutAcharStar, 1);
+                    }
+                }
                 oldValue = value;
             }
         }
@@ -74,8 +84,16 @@ private:
             static int oldValue = value;
             if (value != oldValue)
             {
+                for ( int i = 0; i < layerButtonsB.size(); i++ )
+                {
+                    if (layerButtonsBstate[i] == 1)
+                    {
+                        string tcOscOutB = "/composition/layers/" + to_string(i+1) + "/clips/" + to_string(value) + "/connect";
+                        const char * tcOscOutBcharStar = tcOscOutB.c_str();
+                        sender.send(tcOscOutBcharStar, 1);
+                    }
+                }
                 sender.send("/max/triggercolumn2",value);
-                triggerGroupBValue = value;
                 oldValue = value;
             }
         }
@@ -115,12 +133,7 @@ private:
                         tcTrigger2 = i;
                 }
             }
-            int value;
-            if (tcNumber == 1)
-                value = tcTrigger1;
-            else if (tcNumber == 2)
-                value = tcTrigger2;
-    
+        
             float triggerLabelColourOffset = 0.1;
             float colourOffset = 0.1;
             
@@ -133,7 +146,6 @@ private:
                                          Colour::fromHSV(tcTrigger1/144.f*0.4+triggerLabelColourOffset, 1.f, 1.f, 1.f));
                 timecodeSlider1.setColour(Slider::thumbColourId,
                                           Colour::fromHSV(tcTrigger1/144.f*0.4+colourOffset, 1.f, 1.f, 1.f));
-                
             }
             else if (tcNumber == 2)
             {
@@ -144,7 +156,6 @@ private:
                                           Colour::fromHSV(tcTrigger2/144.f*0.4+triggerLabelColourOffset, 1.f, 1.f, 1.f));
                 timecodeSlider2.setColour(Slider::thumbColourId,
                                           Colour::fromHSV(tcTrigger2/144.f*0.4+colourOffset, 1.f, 1.f, 1.f));
-                
             }
             if (tcNumber == 1)
             {
@@ -163,6 +174,7 @@ private:
                 }
             }
         }
+        
         if (tcNumber == 1)
             return tcTrigger1;
         else if (tcNumber == 2)
@@ -201,8 +213,8 @@ private:
     float tcTrigger2;
     float elapsed = 0.0f;
     
-    int triggerGroupAValue;
-    int triggerGroupBValue;
+    int layerButtonsAstate[16] {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+    int layerButtonsBstate[16] {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
     
     LookAndFeel_V4 arenaLAF;
     LookAndFeel_V3 LAFvar;
