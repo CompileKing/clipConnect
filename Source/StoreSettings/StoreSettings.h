@@ -17,9 +17,11 @@ public:
     
     Settings ();
     ~Settings ();
-    bool save();
+    bool save ();
+    void setUserPrefs (int buttonStateArrayA[],int buttonStateArrayB[]);
     
 private:
-    File getXmlFile();
+    File getXmlFile ();
     ScopedPointer<XmlElement> settingsData;
+    
 };

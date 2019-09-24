@@ -56,6 +56,8 @@ public:
                 layerButtonsBstate[i] = layerButtonsB[i]->getToggleState();
             }
         }
+        settings.setUserPrefs(layerButtonsAstate,layerButtonsBstate);
+        settings.save();
     }
 
 private:

@@ -12,7 +12,7 @@ using namespace std;
 //==============================================================================
 MainComponent::MainComponent()
 {
-    settings.save();
+    
     float timecodeLabelSize = 100;
     float triggerLabelSize = 200;
 

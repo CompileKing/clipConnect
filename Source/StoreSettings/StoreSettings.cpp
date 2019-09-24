@@ -21,7 +21,35 @@ Settings::~Settings()
     settingsData = nullptr;
 }
 
-bool Settings::save()
+void Settings::setUserPrefs(int buttonStateArrayA[],int buttonStateArrayB[])
+{
+    //out with the old
+    settingsData->deleteAllChildElementsWithTagName( "UserPreferences") ;
+    //in with the new
+    XmlElement* userPrefs = new XmlElement("UserPreferences");
+    
+    String buttonStateAString = "";
+    for (int i=0;i<16;i++)
+    {
+        buttonStateAString += buttonStateArrayA[i];
+    }
+    XmlElement* buttonStateAelement = new XmlElement ("ButtonStateA");
+    buttonStateAelement->setAttribute("ButtonStateA", buttonStateAString);
+    userPrefs->addChildElement( buttonStateAelement );
+    
+    String buttonStateBString = "";
+    for (int i=0;i<16;i++)
+    {
+        buttonStateBString += buttonStateArrayB[i];
+    }
+    XmlElement* buttonStateBelement = new XmlElement ("ButtonStateB");
+    buttonStateBelement->setAttribute("ButtonStateB", buttonStateBString);
+    userPrefs->addChildElement( buttonStateBelement );
+
+    settingsData->addChildElement( userPrefs );
+}
+
+bool Settings::save ()
 {
     //save everything into an XML file
     File f = getXmlFile();
@@ -37,7 +65,7 @@ bool Settings::save()
     }
 }
 
-File Settings::getXmlFile()
+File Settings::getXmlFile ()
 {
     //get the file config.xml from the users documents folder
     File appDir = File::getSpecialLocation(File::userDocumentsDirectory);
