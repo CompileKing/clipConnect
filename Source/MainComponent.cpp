@@ -12,6 +12,7 @@ using namespace std;
 //==============================================================================
 MainComponent::MainComponent()
 {
+    settings.save();
     float timecodeLabelSize = 100;
     float triggerLabelSize = 200;
 
@@ -134,7 +135,7 @@ void MainComponent::paint (Graphics& g)
                                     (getHeight()/2)-(objectSize/2)+yOffset+imageOffset,
                                     objectSize,
                                     objectSize);
-    g.setColour(Colour::fromRGBA(0, 0, 0, abs(sin(elapsed))*255));
+    g.setColour(Colour::fromRGBA(0, 0, 0, 255)); //abs(sin(elapsed))*255
     g.drawImage(smpte1image, smpteImageRect1);
     
     Rectangle<float> smpteImageRect2 ((getWidth()/2)-(objectSize/2)+(getWidth()/2.f)-edgeDistance+xOffset+imageXoffset,

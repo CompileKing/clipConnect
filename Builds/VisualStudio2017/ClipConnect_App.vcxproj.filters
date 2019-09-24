@@ -2,6 +2,9 @@
 
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <Filter Include="ClipConnect\StoreSettings">
+      <UniqueIdentifier>{E048067B-9587-ABC3-50F2-8423E424DB65}</UniqueIdentifier>
+    </Filter>
     <Filter Include="ClipConnect\TimecodeList">
       <UniqueIdentifier>{6A618AE4-D80F-872D-8004-BE3B57628E94}</UniqueIdentifier>
     </Filter>
@@ -415,6 +418,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\StoreSettings\StoreSettings.cpp">
+      <Filter>ClipConnect\StoreSettings</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\MainComponent.cpp">
       <Filter>ClipConnect\Source</Filter>
     </ClCompile>
@@ -2304,6 +2310,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\StoreSettings\StoreSettings.h">
+      <Filter>ClipConnect\StoreSettings</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\TimecodeList\TimecodeList.h">
       <Filter>ClipConnect\TimecodeList</Filter>
     </ClInclude>

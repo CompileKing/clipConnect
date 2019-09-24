@@ -138,6 +138,7 @@
     <Lib/>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\StoreSettings\StoreSettings.cpp"/>
     <ClCompile Include="..\..\Source\MainComponent.cpp"/>
     <ClCompile Include="..\..\Source\Main.cpp"/>
     <ClCompile Include="..\..\Source\ReadConvertAss\ReadConvertAss.cpp"/>
@@ -1889,6 +1890,7 @@
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_osc.cpp"/>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\StoreSettings\StoreSettings.h"/>
     <ClInclude Include="..\..\Source\TimecodeList\TimecodeList.h"/>
     <ClInclude Include="..\..\Source\MainComponent.h"/>
     <ClInclude Include="..\..\Source\ReadConvertAss\ReadConvertAss.h"/>

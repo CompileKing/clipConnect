@@ -10,6 +10,8 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "TimecodeList/TimecodeList.h"
+#include "StoreSettings/StoreSettings.h"
+
 
 using namespace std;
 
@@ -93,7 +95,6 @@ private:
                         sender.send(tcOscOutBcharStar, 1);
                     }
                 }
-                sender.send("/max/triggercolumn2",value);
                 oldValue = value;
             }
         }
@@ -102,7 +103,6 @@ private:
     // this function handles everything timecode related for 2 incomming timecode signals and returns a trigger index for each of the 2 timecode inputs
     int tcTriggerCreator(const OSCMessage& message, string receivedAddress, string checkAddress,int tcNumber)
     {
-
         const char * address1 = receivedAddress.c_str();
         const char * address1Set = checkAddress.c_str();
         int strncmpResult = strncmp(address1, address1Set, checkAddress.length());
@@ -133,7 +133,6 @@ private:
                         tcTrigger2 = i;
                 }
             }
-        
             float triggerLabelColourOffset = 0.1;
             float colourOffset = 0.1;
             
@@ -190,8 +189,9 @@ private:
     
     void timerCallback() override
     {
-        repaint();
+        //repaint();
         elapsed += 0.07f;
+        realtime += 0.5;
     }
   
     string tcInputAddress1 = "/smptecontroller/smpte1";
@@ -212,6 +212,7 @@ private:
     float tcTrigger1;
     float tcTrigger2;
     float elapsed = 0.0f;
+    float realtime = 0.0f;
     
     int layerButtonsAstate[16] {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
     int layerButtonsBstate[16] {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
@@ -231,6 +232,8 @@ private:
     
     OwnedArray<TextButton> layerButtonsA;
     OwnedArray<TextButton> layerButtonsB;
+    
+    Settings settings;
     
     /*
      print: /smptecontroller/smpte1 00:00:25.08
