@@ -2,6 +2,12 @@
 
 <JUCERPROJECT id="Mo4xNE" name="ClipConnect" projectType="guiapp" jucerVersion="5.4.4">
   <MAINGROUP id="NorGid" name="ClipConnect">
+    <GROUP id="{E60BE0A1-6034-67E6-B956-5C789718B24D}" name="GetResolumePreferences">
+      <FILE id="JooB4z" name="GetResolumePreferences.cpp" compile="1" resource="0"
+            file="Source/GetResolumePreferences/GetResolumePreferences.cpp"/>
+      <FILE id="kzuAri" name="GetResolumePreferences.h" compile="0" resource="0"
+            file="Source/GetResolumePreferences/GetResolumePreferences.h"/>
+    </GROUP>
     <GROUP id="{A9EC5766-4F24-B6A8-18CB-6309D10203FC}" name="StoreSettings">
       <FILE id="cTMLbB" name="StoreSettings.cpp" compile="1" resource="0"
             file="Source/StoreSettings/StoreSettings.cpp"/>

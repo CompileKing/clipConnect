@@ -2,6 +2,9 @@
 
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <Filter Include="ClipConnect\GetResolumePreferences">
+      <UniqueIdentifier>{2FE8039A-4C54-4456-D6A5-579EC462D7D5}</UniqueIdentifier>
+    </Filter>
     <Filter Include="ClipConnect\StoreSettings">
       <UniqueIdentifier>{E048067B-9587-ABC3-50F2-8423E424DB65}</UniqueIdentifier>
     </Filter>
@@ -418,6 +421,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\GetResolumePreferences\GetResolumePreferences.cpp">
+      <Filter>ClipConnect\GetResolumePreferences</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\StoreSettings\StoreSettings.cpp">
       <Filter>ClipConnect\StoreSettings</Filter>
     </ClCompile>
@@ -2310,6 +2316,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\GetResolumePreferences\GetResolumePreferences.h">
+      <Filter>ClipConnect\GetResolumePreferences</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\StoreSettings\StoreSettings.h">
       <Filter>ClipConnect\StoreSettings</Filter>
     </ClInclude>

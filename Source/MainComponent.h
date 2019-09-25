@@ -11,6 +11,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "TimecodeList/TimecodeList.h"
 #include "StoreSettings/StoreSettings.h"
+#include "GetResolumePreferences/GetResolumePreferences.h"
 
 
 using namespace std;
@@ -75,7 +76,7 @@ private:
                 {
                     if (layerButtonsAstate[i] == 1)
                     {
-                        string tcOscOutA = "/composition/layers/" + to_string(i+1) + "/clips/" + to_string(value) + "/connect";
+                        string tcOscOutA = "/composition/layers/" + to_string(i+1) + "/clips/" + to_string(value+1) + "/connect";
                         const char * tcOscOutAcharStar = tcOscOutA.c_str();
                         sender.send(tcOscOutAcharStar, 1);
                     }
@@ -92,7 +93,7 @@ private:
                 {
                     if (layerButtonsBstate[i] == 1)
                     {
-                        string tcOscOutB = "/composition/layers/" + to_string(i+1) + "/clips/" + to_string(value) + "/connect";
+                        string tcOscOutB = "/composition/layers/" + to_string(i+1) + "/clips/" + to_string(value+1) + "/connect";
                         const char * tcOscOutBcharStar = tcOscOutB.c_str();
                         sender.send(tcOscOutBcharStar, 1);
                     }
@@ -123,7 +124,7 @@ private:
                 int strncmpResult = strncmp(str1, str2, 4);
                 if (strncmpResult == 0)
                 {
-                    String timeCodeLabelString = to_string(i);
+                    String timeCodeLabelString = to_string(i+1);
                     if (tcNumber == 1)
                         tcTriggerLabel1.setText(timeCodeLabelString, dontSendNotification);
                     else if (tcNumber == 2)
@@ -236,6 +237,7 @@ private:
     OwnedArray<TextButton> layerButtonsB;
     
     Settings settings;
+    GetResolumePreferences getPref;
     
     /*
      print: /smptecontroller/smpte1 00:00:25.08

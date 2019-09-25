@@ -24,4 +24,5 @@ private:
     File getXmlFile ();
     ScopedPointer<XmlElement> settingsData;
     
+    
 };
