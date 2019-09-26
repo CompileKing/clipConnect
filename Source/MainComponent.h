@@ -234,7 +234,8 @@ private:
     OwnedArray<TextButton> layerButtonsB;
     
     Settings settings;
-    GetResolumePreferences getPref;
+    GetResolumePreferences getPrefRes6;
+    GetResolumePreferences getPrefRes7;
     
     
     

@@ -110,8 +110,9 @@ MainComponent::MainComponent()
     
     setSize (1030, 160);
     
-    getPref.parseInject();
-    getPref.save();
+    getPrefRes6.parseInject(6);
+    getPrefRes7.parseInject(7);
+    
 }
 
 MainComponent::~MainComponent()

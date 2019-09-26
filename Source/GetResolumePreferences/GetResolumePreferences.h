@@ -20,9 +20,8 @@ class GetResolumePreferences
 public:
     
     GetResolumePreferences ();
-    ~GetResolumePreferences ();
-    bool save ();
-    void parseInject();
+    ~GetResolumePreferences ();    
+    void parseInject(int versionNumber);
     XmlElement* createElementFromFile(File inputFile);
     
 protected:
@@ -30,7 +29,7 @@ protected:
     
     
 private:
-    File getXmlFile ();
+    File getXmlFile (int versionNumber);
     std::unique_ptr<XmlElement> loadedConfigXml;
     XmlElement* injection = new XmlElement ("Param");
     

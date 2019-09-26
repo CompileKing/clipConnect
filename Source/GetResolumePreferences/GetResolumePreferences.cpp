@@ -21,12 +21,12 @@ GetResolumePreferences::~GetResolumePreferences()
     loadedConfigXml = nullptr;
 }
 
-void GetResolumePreferences::parseInject()
+void GetResolumePreferences::parseInject(int versionNumber)
 {
     cout << "" << endl;
     cout << "//////////////////////////////////////////////////////////////" << endl;
     cout << "" << endl;
-    File f = getXmlFile();
+    File f = getXmlFile(versionNumber);
     if (f.exists())
     {
         injection->setAttribute ("name","OSCSMPTEOutEnabled");
@@ -45,55 +45,54 @@ void GetResolumePreferences::parseInject()
                  secondChild != nullptr; \
                  secondChild = secondChild->getNextElementWithTagName ("Params"))
             {
-                int attrCounter = 0;
-                
+                bool injectSwitch = false;
                 for (auto* thirdChild = secondChild->getFirstChildElement(); \
                      thirdChild != nullptr; \
                      thirdChild = thirdChild->getNextElement())
                 {
-                    String checkStorage = "storage";
-                    if (thirdChild->getAttributeName(0)==checkStorage)
-                    {
-                        attrCounter++;
-                    }
+                    //<Param name="DefaultColumnCount" default="8" value="8"/>
+                    String injectTag = "DefaultColumnCount";
+                    
+                    if (thirdChild->getAttributeValue(1) == injectTag)
+                        injectSwitch = true;
+
+                    if (thirdChild->getAttributeValue(0) == injectTag)
+                        injectSwitch = true;
                 }
-                if (attrCounter == 5)
+                if (injectSwitch == true)
                 {
                     secondChild->insertChildElement(injection, 6);
-                    attrCounter = 0;
+                    injectSwitch = false;
                 }
             }
         }
         cout << loadedConfigXml->toString() << endl;
     }
+    loadedConfigXml->writeToFile(f, "");
+    
     cout << "" << endl;
     cout << "//////////////////////////////////////////////////////////////" << endl;
     cout << "" << endl;
 }
 
-File GetResolumePreferences::getXmlFile ()
+File GetResolumePreferences::getXmlFile (int versionNumber)
 {
     //get the file config.xml from the users documents folder
     File appDir = File::getSpecialLocation(File::userDocumentsDirectory);
-    File xmlFile = appDir.getChildFile("Resolume Arena 6/Preferences/config.xml");
+    File xmlFile;
+    if (versionNumber == 6)
+    {
+        xmlFile = appDir.getChildFile("Resolume Arena 6/Preferences/config.xml");
+    }
+    if (versionNumber == 7)
+    {
+        xmlFile = appDir.getChildFile("Resolume Arena/Preferences/config.xml");
+    }
     return xmlFile;
+    
 }
 
-bool GetResolumePreferences::save ()
-{
-    //save everything into an XML file
-    File file = getXmlFile();
-    if (! file.exists() )
-        file.create();
-        
-    if (loadedConfigXml->writeToFile(file, "") )
-        return true;
-    else
-    {
-        DBG("SAVE ERROR!");
-        return false;
-    }
-}
+
 
 
 
