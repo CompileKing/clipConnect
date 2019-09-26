@@ -14,6 +14,7 @@
 #include "GetResolumePreferences/GetResolumePreferences.h"
 
 
+
 using namespace std;
 
 //==============================================================================
@@ -185,11 +186,7 @@ private:
             return 0;
     }
     
-    void layerTrigger(int value, int layerGroup, int buttonIndex)
-    {
-        
-    }
-    
+
     void timerCallback() override
     {
         //repaint();
@@ -238,6 +235,8 @@ private:
     
     Settings settings;
     GetResolumePreferences getPref;
+    
+    
     
     /*
      print: /smptecontroller/smpte1 00:00:25.08

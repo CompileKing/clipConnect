@@ -22,14 +22,17 @@ public:
     GetResolumePreferences ();
     ~GetResolumePreferences ();
     bool save ();
-    void load();
+    void parseInject();
     XmlElement* createElementFromFile(File inputFile);
+    
+protected:
+    String getElementName( XmlElement* element );
     
     
 private:
     File getXmlFile ();
-    ScopedPointer<XmlElement> configXML;
     std::unique_ptr<XmlElement> loadedConfigXml;
+    XmlElement* injection = new XmlElement ("Param");
     
     
     

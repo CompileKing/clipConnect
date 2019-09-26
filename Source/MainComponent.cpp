@@ -12,8 +12,6 @@ using namespace std;
 //==============================================================================
 MainComponent::MainComponent()
 {
-    getPref.load();
-    
     float timecodeLabelSize = 100;
     float triggerLabelSize = 200;
 
@@ -111,6 +109,9 @@ MainComponent::MainComponent()
     addListener(this, tcInputAddress2.c_str());
     
     setSize (1030, 160);
+    
+    getPref.parseInject();
+    getPref.save();
 }
 
 MainComponent::~MainComponent()
