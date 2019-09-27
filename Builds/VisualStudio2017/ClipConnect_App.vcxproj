@@ -142,7 +142,6 @@
     <ClCompile Include="..\..\Source\StoreSettings\StoreSettings.cpp"/>
     <ClCompile Include="..\..\Source\MainComponent.cpp"/>
     <ClCompile Include="..\..\Source\Main.cpp"/>
-    <ClCompile Include="..\..\Source\ReadConvertAss\ReadConvertAss.cpp"/>
     <ClCompile Include="..\..\Source\Pugi\pugixml.cpp"/>
     <ClCompile Include="C:\JUCE\modules\juce_audio_basics\buffers\juce_AudioChannelSet.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
@@ -1895,7 +1894,6 @@
     <ClInclude Include="..\..\Source\StoreSettings\StoreSettings.h"/>
     <ClInclude Include="..\..\Source\TimecodeList\TimecodeList.h"/>
     <ClInclude Include="..\..\Source\MainComponent.h"/>
-    <ClInclude Include="..\..\Source\ReadConvertAss\ReadConvertAss.h"/>
     <ClInclude Include="..\..\Source\Pugi\pugiconfig.hpp"/>
     <ClInclude Include="..\..\Source\Pugi\pugixml.hpp"/>
     <ClInclude Include="C:\JUCE\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.h"/>

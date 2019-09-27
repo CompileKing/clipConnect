@@ -14,9 +14,6 @@
     <Filter Include="ClipConnect\Source">
       <UniqueIdentifier>{D78B5E4D-FFC6-7354-522C-0210330051C8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ClipConnect\ReadConvertAss">
-      <UniqueIdentifier>{C1F6F88D-1880-EBDD-AFBD-427938AC4781}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ClipConnect\Pugi">
       <UniqueIdentifier>{896D798C-3B2E-460F-80D7-0AC06F8E2F05}</UniqueIdentifier>
     </Filter>
@@ -432,9 +429,6 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\Main.cpp">
       <Filter>ClipConnect\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\ReadConvertAss\ReadConvertAss.cpp">
-      <Filter>ClipConnect\ReadConvertAss</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Pugi\pugixml.cpp">
       <Filter>ClipConnect\Pugi</Filter>
@@ -2327,9 +2321,6 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\MainComponent.h">
       <Filter>ClipConnect\Source</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\ReadConvertAss\ReadConvertAss.h">
-      <Filter>ClipConnect\ReadConvertAss</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Pugi\pugiconfig.hpp">
       <Filter>ClipConnect\Pugi</Filter>

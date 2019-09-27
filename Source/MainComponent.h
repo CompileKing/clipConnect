@@ -51,7 +51,6 @@ public:
             cout << to_string(settings.feedbackArrayA[i]);
             layerButtonsB[i]->setToggleState(settings.feedbackArrayB[i], sendNotification);
         }
-        
     }
     
     void buttonClicked (Button* button) override
@@ -149,6 +148,7 @@ private:
                         tcTrigger2 = i;
                 }
             }
+            
             float triggerLabelColourOffset = 0.1;
             float colourOffset = 0.1;
             
@@ -172,6 +172,7 @@ private:
                 timecodeSlider2.setColour(Slider::thumbColourId,
                                           Colour::fromHSV(tcTrigger2/144.f*0.4+colourOffset, 1.f, 1.f, 1.f));
             }
+            
             if (tcNumber == 1)
             {
                 for ( int i = 0; i < layerButtonsA.size(); i++ )

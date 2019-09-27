@@ -22,12 +22,6 @@
             file="Source/MainComponent.cpp"/>
       <FILE id="v7moed" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
     </GROUP>
-    <GROUP id="{03ED9D32-4D6D-2F85-0F8A-3EF441B68D4B}" name="ReadConvertAss">
-      <FILE id="tgRVFn" name="ReadConvertAss.cpp" compile="1" resource="0"
-            file="Source/ReadConvertAss/ReadConvertAss.cpp"/>
-      <FILE id="dmn3ca" name="ReadConvertAss.h" compile="0" resource="0"
-            file="Source/ReadConvertAss/ReadConvertAss.h"/>
-    </GROUP>
     <GROUP id="{5AFF2BFD-8732-CBF4-BAA4-C50EB83498AA}" name="Pugi">
       <FILE id="CeZ5Uw" name="pugiconfig.hpp" compile="0" resource="0" file="Source/Pugi/pugiconfig.hpp"/>
       <FILE id="IluPpq" name="pugixml.cpp" compile="1" resource="0" file="Source/Pugi/pugixml.cpp"/>
