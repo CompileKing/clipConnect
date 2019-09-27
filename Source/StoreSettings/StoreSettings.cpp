@@ -12,13 +12,46 @@
 
 Settings::Settings()
 {
-    //defaults
-    settingsData = new XmlElement("SETTINGS");
+
 }
 
 Settings::~Settings()
 {
     settingsData = nullptr;
+}
+
+void Settings::loadParseFeedA()
+{
+    File loadedXML = getXmlFile();
+    settingsData = juce::parseXML (loadedXML);
+    indexFeedbackA = 0;
+    indexFeedbackB = 0;
+    cout << settingsData->toString() << endl;
+
+    for (auto* settingsElement = settingsData->getFirstChildElement(); \
+         settingsElement != nullptr; \
+         settingsElement = settingsElement->getNextElement())
+    {
+        cout << "found user settings" << endl;
+        for (auto* buttonElement = settingsElement->getChildByName("buttonA"); \
+             buttonElement != nullptr; \
+             buttonElement = buttonElement->getNextElementWithTagName("buttonA"))
+        {
+            feedbackArrayA[indexFeedbackA] = buttonElement->getAttributeValue(0).getIntValue();
+            cout << feedbackArrayA[indexFeedbackA];
+            indexFeedbackA++;
+        }
+        cout << endl;
+        for (auto* buttonElement = settingsElement->getChildByName("buttonB"); \
+             buttonElement != nullptr; \
+             buttonElement = buttonElement->getNextElementWithTagName("buttonB"))
+        {
+            feedbackArrayB[indexFeedbackB] = buttonElement->getAttributeValue(0).getIntValue();
+            cout << feedbackArrayB[indexFeedbackB];
+            indexFeedbackB++;
+        }
+        cout << endl;
+    }
 }
 
 void Settings::setUserPrefs(int buttonStateArrayA[],int buttonStateArrayB[])
@@ -31,21 +64,20 @@ void Settings::setUserPrefs(int buttonStateArrayA[],int buttonStateArrayB[])
     String buttonStateAString = "";
     for (int i=0;i<16;i++)
     {
-        buttonStateAString += buttonStateArrayA[i];
+        XmlElement* buttonElement = new XmlElement("buttonA");
+        String buttonIndex = "button" + to_string(i);
+        buttonElement->setAttribute(buttonIndex, buttonStateArrayA[i]);
+        userPrefs->addChildElement(buttonElement);
     }
-    XmlElement* buttonStateAelement = new XmlElement ("ButtonStateA");
-    buttonStateAelement->setAttribute("ButtonStateA", buttonStateAString);
-    userPrefs->addChildElement( buttonStateAelement );
-    
+
     String buttonStateBString = "";
     for (int i=0;i<16;i++)
     {
-        buttonStateBString += buttonStateArrayB[i];
+        XmlElement* buttonElement = new XmlElement("buttonB");
+        String buttonIndex = "button" + to_string(i);
+        buttonElement->setAttribute(buttonIndex, buttonStateArrayB[i]);
+        userPrefs->addChildElement(buttonElement);
     }
-    XmlElement* buttonStateBelement = new XmlElement ("ButtonStateB");
-    buttonStateBelement->setAttribute("ButtonStateB", buttonStateBString);
-    userPrefs->addChildElement( buttonStateBelement );
-
     settingsData->addChildElement( userPrefs );
 }
 

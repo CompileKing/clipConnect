@@ -10,6 +10,7 @@
 
 #pragma once
 #include "JuceHeader.h"
+using namespace std;
 
 class Settings
 {
@@ -18,11 +19,16 @@ public:
     Settings ();
     ~Settings ();
     bool save ();
+    void loadParseFeedA ();
     void setUserPrefs (int buttonStateArrayA[],int buttonStateArrayB[]);
+    int feedbackArrayA[100];
+    int feedbackArrayB[100];
+    int indexFeedbackA;
+    int indexFeedbackB;
     
 private:
     File getXmlFile ();
-    ScopedPointer<XmlElement> settingsData;
+    std::unique_ptr<XmlElement> settingsData;
     
     
 };

@@ -19,6 +19,7 @@ GetResolumePreferences::GetResolumePreferences()
 GetResolumePreferences::~GetResolumePreferences()
 {
     loadedConfigXml = nullptr;
+    injection = nullptr;
 }
 
 void GetResolumePreferences::parseInject(int versionNumber)

@@ -12,6 +12,7 @@ using namespace std;
 //==============================================================================
 MainComponent::MainComponent()
 {
+    settings.loadParseFeedA();
     float timecodeLabelSize = 100;
     float triggerLabelSize = 200;
 
@@ -112,6 +113,8 @@ MainComponent::MainComponent()
     
     getPrefRes6.parseInject(6);
     getPrefRes7.parseInject(7);
+    
+    buttonLoad();
     
 }
 

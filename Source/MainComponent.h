@@ -42,6 +42,18 @@ public:
     {
     }
     
+    void buttonLoad()
+    {
+        cout << "setToggleState: ";
+        for ( int i = 0; i < layerButtonsA.size(); i++ )
+        {
+            layerButtonsA[i]->setToggleState(settings.feedbackArrayA[i], sendNotification);
+            cout << to_string(settings.feedbackArrayA[i]);
+            layerButtonsB[i]->setToggleState(settings.feedbackArrayB[i], sendNotification);
+        }
+        
+    }
+    
     void buttonClicked (Button* button) override
     {
         for ( int i = 0; i < layerButtonsA.size(); i++ )
