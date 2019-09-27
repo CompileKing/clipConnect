@@ -88,7 +88,7 @@ private:
                 {
                     if (layerButtonsAstate[i] == 1)
                     {
-                        string tcOscOutA = "/composition/layers/" + to_string(i+1) + "/clips/" + to_string(value+1) + "/connect";
+                        string tcOscOutA = "/composition/layers/" + to_string(i+1) + "/clips/" + to_string(value) + "/connect";
                         const char * tcOscOutAcharStar = tcOscOutA.c_str();
                         sender.send(tcOscOutAcharStar, 1);
                     }
@@ -105,7 +105,7 @@ private:
                 {
                     if (layerButtonsBstate[i] == 1)
                     {
-                        string tcOscOutB = "/composition/layers/" + to_string(i+1) + "/clips/" + to_string(value+1) + "/connect";
+                        string tcOscOutB = "/composition/layers/" + to_string(i+1) + "/clips/" + to_string(value) + "/connect";
                         const char * tcOscOutBcharStar = tcOscOutB.c_str();
                         sender.send(tcOscOutBcharStar, 1);
                     }
@@ -136,7 +136,7 @@ private:
                 int strncmpResult = strncmp(str1, str2, 4);
                 if (strncmpResult == 0)
                 {
-                    String timeCodeLabelString = to_string(i+1);
+                    String timeCodeLabelString = to_string(i);
                     if (tcNumber == 1)
                         tcTriggerLabel1.setText(timeCodeLabelString, dontSendNotification);
                     else if (tcNumber == 2)
@@ -249,9 +249,7 @@ private:
     Settings settings;
     GetResolumePreferences getPrefRes6;
     GetResolumePreferences getPrefRes7;
-    
-    
-    
+
     /*
      print: /smptecontroller/smpte1 00:00:25.08
      print: /smptecontroller/smpte2 00:00:25.08
