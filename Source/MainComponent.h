@@ -148,13 +148,17 @@ private:
                         tcTrigger2 = i;
                 }
             }
+            if (tcNumber == 1)
+                timecodeSlider1.setValue(tcTrigger1/144.f);
+            if (tcNumber == 2)
+                timecodeSlider2.setValue(tcTrigger2/144.f);
             
+            /*
             float triggerLabelColourOffset = 0.1;
             float colourOffset = 0.1;
             
             if (tcNumber == 1)
             {
-                timecodeSlider1.setValue(tcTrigger1/144.f);
                 timeCodeLabel1.setColour(Label::textColourId,
                                          Colour::fromHSV(tcTrigger1/144.f*0.4+colourOffset, 1.f, 1.f, 1.f));
                 tcTriggerLabel1.setColour(Label::textColourId,
@@ -164,7 +168,6 @@ private:
             }
             else if (tcNumber == 2)
             {
-                timecodeSlider2.setValue(tcTrigger2/144.f);
                 timeCodeLabel2.setColour(Label::textColourId,
                                          Colour::fromHSV(tcTrigger2/144.f*0.4+colourOffset, 1.f, 1.f, 1.f));
                  tcTriggerLabel2.setColour(Label::textColourId,
@@ -189,6 +192,7 @@ private:
                                                 Colour::fromHSV(tcTrigger2/144.f*0.4+colourOffset, 1.f, 1.f, 1.f));
                 }
             }
+             */
         }
         
         if (tcNumber == 1)
@@ -222,6 +226,9 @@ private:
     Image smpte1image = ImageCache::getFromMemory (BinaryData::SMPTE1_png, BinaryData::SMPTE1_pngSize);
     Image smpte2image = ImageCache::getFromMemory (BinaryData::SMPTE2_png, BinaryData::SMPTE2_pngSize);
     
+    int xOffset = -40;
+    int yOffset = -50;
+    
     float tcTrigger1;
     float tcTrigger2;
     float elapsed = 0.0f;
@@ -240,8 +247,9 @@ private:
     Colour arenaMidGrey = Colour::fromRGB(42,42,42);
     Colour arenaBottomGrey = Colour::fromRGB(25,25,25);
     Colour arenaDeepGrey = Colour::fromRGB(15,15,15);
-    Colour brightOrange = Colour::fromHSV(0.1f, 1.f, 1.f, 1.f);
-    Colour backgroundGrey = Colour::fromHSV(0.4f,0.4f,0.2,1.f);
+    Colour brightOrange = Colour::  Colour::fromRGB(255, 160, 11);
+    Colour backgroundGrey = Colour::fromRGB(43, 46, 46);
+    Colour startColour = brightOrange;//Colour::fromHSV(0.f, 0.f, 1.f, 0.9);
     
     OwnedArray<TextButton> layerButtonsA;
     OwnedArray<TextButton> layerButtonsB;
