@@ -147,9 +147,9 @@ void MainComponent::paint (Graphics& g)
     g.setColour(Colour::fromRGBA(0, 0, 0, 80));
     g.drawLine(getWidth()/2.f, 0, getWidth()/2.f, getHeight(),5.f);
     
-    int imageYoffset = 26;
-    int imageXoffset = -180;
-    int objectSize = 60;
+    int imageXoffset = -176;
+    int imageYoffset = 32;
+    int objectSize = 50;
     int edgeDistance = getWidth()/4;
     
     g.setColour(startColour);
@@ -172,8 +172,8 @@ void MainComponent::resized()
     
     
     int timecodeLabelYoffset = 20;
-    int triggerLabelYoffset = 33;
     int triggerLabelXoffset = 210;
+    int triggerLabelYoffset = 33;
     int timecodeSliderYoffset = 60;
     int objectSize = getWidth()-320;
     int edgeDistance = getWidth()/4;
@@ -216,4 +216,15 @@ void MainComponent::resized()
         layerButtonsA[i]->setBounds(x + i * size + xOffset,y + yOffset, size, size);
         layerButtonsB[i]->setBounds(x2 + i * size + xOffset,y + yOffset, size, size);
     }
+}
+
+void MainComponent::mouseDown (const MouseEvent& e)
+{
+    dragger.startDraggingComponent (this, e);
+}
+
+void MainComponent::mouseDrag (const MouseEvent& e)
+{
+    // as there's no titlebar we have to manage the dragging ourselves
+    dragger.dragComponent (this, e, 0);
 }

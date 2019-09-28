@@ -66,6 +66,7 @@ public:
                                                     DocumentWindow::allButtons)
         {
             setUsingNativeTitleBar (true);
+            setTitleBarHeight(1);
             setContentOwned (new MainComponent(), true);
 
            #if JUCE_IOS || JUCE_ANDROID
@@ -76,6 +77,8 @@ public:
             setResizeLimits(1000, 150, 3840,  2160);
             centreWithSize (getWidth(), getHeight());
            #endif
+            
+            
 
             setVisible (true);
         }

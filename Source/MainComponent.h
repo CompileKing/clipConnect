@@ -37,6 +37,8 @@ public:
     //==============================================================================
     void paint (Graphics&) override;
     void resized() override;
+    void mouseDown (const MouseEvent& e) override;
+    void mouseDrag (const MouseEvent& e) override;
     
     void sliderValueChanged (Slider* slider) override
     {
@@ -77,6 +79,7 @@ private:
 
     void oscMessageReceived (const OSCMessage& message) override
     {
+        elapsed = 0.f;
         // /composition/layers/1/clips/1/connect
         string receivedAddress = message.getAddressPattern().toString().toStdString().c_str();
         {
@@ -207,8 +210,9 @@ private:
     void timerCallback() override
     {
         //repaint();
-        elapsed += 0.07f;
-        realtime += 0.5;
+        elapsed += 0.025f;
+        String juceTimerLabelText = to_string(elapsed);
+        
     }
   
     string tcInputAddress1 = "/smptecontroller/smpte1";
@@ -227,7 +231,7 @@ private:
     Image smpte2image = ImageCache::getFromMemory (BinaryData::SMPTE2_png, BinaryData::SMPTE2_pngSize);
     
     int xOffset = -40;
-    int yOffset = -50;
+    int yOffset = -55;
     
     float tcTrigger1;
     float tcTrigger2;
@@ -257,6 +261,8 @@ private:
     Settings settings;
     GetResolumePreferences getPrefRes6;
     GetResolumePreferences getPrefRes7;
+    
+    ComponentDragger dragger;
 
     /*
      print: /smptecontroller/smpte1 00:00:25.08
