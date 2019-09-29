@@ -11,7 +11,7 @@ using namespace std;
 
 //==============================================================================
 MainComponent::MainComponent()
-{
+{    
     settings.loadParseFeedA();
     float timecodeLabelSize = 100;
     float triggerLabelSize = 200;
@@ -169,8 +169,6 @@ void MainComponent::paint (Graphics& g)
 
 void MainComponent::resized()
 {
-    
-    
     int timecodeLabelYoffset = 20;
     int triggerLabelXoffset = 210;
     int triggerLabelYoffset = 33;

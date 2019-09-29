@@ -80,8 +80,13 @@ private:
     void oscMessageReceived (const OSCMessage& message) override
     {
         elapsed = 0.f;
-        // /composition/layers/1/clips/1/connect
+        triggerSender(message);
+    }
+    
+    void triggerSender(const OSCMessage& message)
+    {
         string receivedAddress = message.getAddressPattern().toString().toStdString().c_str();
+        
         {
             int value = tcTriggerCreator(message, receivedAddress, tcInputAddress1, 1);
             static int oldValue = value;
@@ -118,7 +123,6 @@ private:
         }
     }
     
-    // this function handles everything timecode related for 2 incomming timecode signals and returns a trigger index for each of the 2 timecode inputs
     int tcTriggerCreator(const OSCMessage& message, string receivedAddress, string checkAddress,int tcNumber)
     {
         const char * address1 = receivedAddress.c_str();
@@ -206,13 +210,9 @@ private:
             return 0;
     }
     
-
     void timerCallback() override
     {
-        //repaint();
         elapsed += 0.025f;
-        String juceTimerLabelText = to_string(elapsed);
-        
     }
   
     string tcInputAddress1 = "/smptecontroller/smpte1";
@@ -261,8 +261,10 @@ private:
     Settings settings;
     GetResolumePreferences getPrefRes6;
     GetResolumePreferences getPrefRes7;
-    
+
     ComponentDragger dragger;
+    
+    
 
     /*
      print: /smptecontroller/smpte1 00:00:25.08
