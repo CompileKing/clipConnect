@@ -76,21 +76,33 @@ public:
     }
 
 private:
+    
+    void timerCallback() override
+    {
+        elapsed += 0.025f;
+        if (elapsed > 2.f && !sendTrigger)
+        {
+            cout << "SEND A TRIGGER" << endl;
+            triggerSender(receivedMessage, receivedAddress, true);
+            sendTrigger = true;
+        }
+    }
 
     void oscMessageReceived (const OSCMessage& message) override
     {
+        receivedMessage = message[0].getString().toStdString();
+        receivedAddress = message.getAddressPattern().toString().toStdString();
         elapsed = 0.f;
-        triggerSender(message);
+        triggerSender(receivedMessage, receivedAddress, false);
+        sendTrigger = false;
     }
     
-    void triggerSender(const OSCMessage& message)
+    void triggerSender(string message, string address, bool sendAgain )
     {
-        string receivedAddress = message.getAddressPattern().toString().toStdString().c_str();
-        
         {
-            int value = tcTriggerCreator(message, receivedAddress, tcInputAddress1, 1);
+            int value = tcTriggerCreator(message, address, tcInputAddress1, 1);
             static int oldValue = value;
-            if (value != oldValue)
+            if (value != oldValue || sendAgain)
             {
                 for ( int i = 0; i < layerButtonsA.size(); i++ )
                 {
@@ -105,9 +117,9 @@ private:
             }
         }
         {
-            int value = tcTriggerCreator(message, receivedAddress, tcInputAddress2, 2);
+            int value = tcTriggerCreator(message, address, tcInputAddress2, 2);
             static int oldValue = value;
-            if (value != oldValue)
+            if (value != oldValue || sendAgain)
             {
                 for ( int i = 0; i < layerButtonsB.size(); i++ )
                 {
@@ -123,21 +135,23 @@ private:
         }
     }
     
-    int tcTriggerCreator(const OSCMessage& message, string receivedAddress, string checkAddress,int tcNumber)
+    int tcTriggerCreator(const string message, string address, string checkAddress,int tcNumber)
     {
-        const char * address1 = receivedAddress.c_str();
+        
+        const char * address1 = address.c_str();
         const char * address1Set = checkAddress.c_str();
         int strncmpResult = strncmp(address1, address1Set, checkAddress.length());
         if (strncmpResult == 0)
         {
+            
             if (tcNumber == 1)
-                timeCodeLabel1.setText(message[0].getString(), dontSendNotification);
+                timeCodeLabel1.setText(message, dontSendNotification);
             else if (tcNumber == 2)
-                timeCodeLabel2.setText(message[0].getString(), dontSendNotification);
+                timeCodeLabel2.setText(message, dontSendNotification);
             
             for (int i=0;i<144;i++)
             {
-                string oscMessageString = message[0].getString().toStdString();
+                string oscMessageString = message;
                 const char * str1 = oscMessageString.c_str();
                 const char * str2 = timecodeList.timeCodeArray10min[i].c_str();
                 int strncmpResult = strncmp(str1, str2, 4);
@@ -210,13 +224,12 @@ private:
             return 0;
     }
     
-    void timerCallback() override
-    {
-        elapsed += 0.025f;
-    }
+    
   
     string tcInputAddress1 = "/smptecontroller/smpte1";
     string tcInputAddress2 = "/smptecontroller/smpte2";
+    string receivedMessage = to_string(42);
+    string receivedAddress = "/oh/hi/there";
     
     Slider timecodeSlider1;
     Slider timecodeSlider2;
@@ -237,6 +250,8 @@ private:
     float tcTrigger2;
     float elapsed = 0.0f;
     float realtime = 0.0f;
+    
+    bool sendTrigger = false;
     
     int layerButtonsAstate[16] {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
     int layerButtonsBstate[16] {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
