@@ -12,6 +12,7 @@
 #include "TimecodeList/TimecodeList.h"
 #include "StoreSettings/StoreSettings.h"
 #include "GetResolumePreferences/GetResolumePreferences.h"
+#include "CreateSettingsFolder/CreateSettingsFolder.h"
 
 
 
@@ -71,8 +72,8 @@ public:
                 layerButtonsBstate[i] = layerButtonsB[i]->getToggleState();
             }
         }
-        // settings.setUserPrefs(layerButtonsAstate,layerButtonsBstate);
-        // settings.save();
+         settings.setUserPrefs(layerButtonsAstate,layerButtonsBstate);
+         settings.save();
     }
 
 private:
@@ -272,7 +273,9 @@ private:
     OwnedArray<TextButton> layerButtonsA;
     OwnedArray<TextButton> layerButtonsB;
     
+    SettingsFolder settingsFolder;
     Settings settings;
+    
     GetResolumePreferences getPrefRes6;
     GetResolumePreferences getPrefRes7;
 

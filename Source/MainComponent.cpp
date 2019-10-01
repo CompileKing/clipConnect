@@ -11,8 +11,10 @@ using namespace std;
 
 //==============================================================================
 MainComponent::MainComponent()
-{    
-    // settings.loadParseFeedA();
+{
+    settingsFolder.save();
+    
+    
     float timecodeLabelSize = 100;
     float triggerLabelSize = 200;
 
@@ -69,7 +71,11 @@ MainComponent::MainComponent()
     addAndMakeVisible(timecodeSlider2);
     
     ///////////////////////////////////////////////////////////////////////
-                
+    
+    settings.loadParseFeedA();
+    
+    ///////////////////////////////////////////////////////////////////////
+                    
     for(int i = 0; i < 16; i++)
     {
         TextButton* layer = new TextButton();
@@ -126,7 +132,7 @@ MainComponent::MainComponent()
     getPrefRes6.parseInject(6);
     getPrefRes7.parseInject(7);
     
-    buttonLoad();
+     buttonLoad();
     
 }
 

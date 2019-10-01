@@ -37,6 +37,12 @@
             file="media/SMPTE1Transparent.png"/>
       <FILE id="s3FEZq" name="SMPTE2.png" compile="0" resource="1" file="media/SMPTE2.png"/>
     </GROUP>
+    <GROUP id="{BB060554-02D5-ED25-986E-161D785D5E33}" name="CreateSettingsFolder">
+      <FILE id="A9pu6p" name="CreateSettingsFolder.cpp" compile="1" resource="0"
+            file="Source/CreateSettingsFolder/CreateSettingsFolder.cpp"/>
+      <FILE id="UR12PM" name="CreateSettingsFolder.h" compile="0" resource="0"
+            file="Source/CreateSettingsFolder/CreateSettingsFolder.h"/>
+    </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>
     <XCODE_MAC targetFolder="Builds/MacOSX" smallIcon="cpHNuo" bigIcon="cpHNuo">

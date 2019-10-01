@@ -23,33 +23,37 @@ Settings::~Settings()
 void Settings::loadParseFeedA()
 {
     File loadedXML = getXmlFile();
-    settingsData = juce::parseXML (loadedXML);
-    indexFeedbackA = 0;
-    indexFeedbackB = 0;
-    
-    for (auto* settingsElement = settingsData->getFirstChildElement(); \
-         settingsElement != nullptr; \
-         settingsElement = settingsElement->getNextElement())
+    if (loadedXML.exists())
     {
-        cout << "found user settings" << endl;
-        for (auto* buttonElement = settingsElement->getChildByName("buttonA"); \
-             buttonElement != nullptr; \
-             buttonElement = buttonElement->getNextElementWithTagName("buttonA"))
+        settingsData = juce::parseXML (loadedXML);
+        
+        indexFeedbackA = 0;
+        indexFeedbackB = 0;
+        
+        for (auto* settingsElement = settingsData->getFirstChildElement(); \
+             settingsElement != nullptr; \
+             settingsElement = settingsElement->getNextElement())
         {
-            feedbackArrayA[indexFeedbackA] = buttonElement->getAttributeValue(0).getIntValue();
-            cout << feedbackArrayA[indexFeedbackA];
-            indexFeedbackA++;
+            // cout << "found user settings" << endl;
+            for (auto* buttonElement = settingsElement->getChildByName("buttonA"); \
+                 buttonElement != nullptr; \
+                 buttonElement = buttonElement->getNextElementWithTagName("buttonA"))
+            {
+                feedbackArrayA[indexFeedbackA] = buttonElement->getAttributeValue(0).getIntValue();
+                // cout << feedbackArrayA[indexFeedbackA];
+                indexFeedbackA++;
+            }
+            // cout << endl;
+            for (auto* buttonElement = settingsElement->getChildByName("buttonB"); \
+                 buttonElement != nullptr; \
+                 buttonElement = buttonElement->getNextElementWithTagName("buttonB"))
+            {
+                feedbackArrayB[indexFeedbackB] = buttonElement->getAttributeValue(0).getIntValue();
+                // cout << feedbackArrayB[indexFeedbackB];
+                indexFeedbackB++;
+            }
+            // cout << endl;
         }
-        cout << endl;
-        for (auto* buttonElement = settingsElement->getChildByName("buttonB"); \
-             buttonElement != nullptr; \
-             buttonElement = buttonElement->getNextElementWithTagName("buttonB"))
-        {
-            feedbackArrayB[indexFeedbackB] = buttonElement->getAttributeValue(0).getIntValue();
-            cout << feedbackArrayB[indexFeedbackB];
-            indexFeedbackB++;
-        }
-        cout << endl;
     }
 }
 
@@ -82,11 +86,9 @@ void Settings::setUserPrefs(int buttonStateArrayA[],int buttonStateArrayB[])
 
 bool Settings::save ()
 {
-    //save everything into an XML file
     File f = getXmlFile();
     if (! f.exists() )
         f.create();
-    
     
     if (settingsData->writeTo(f))
         return true;
@@ -95,7 +97,6 @@ bool Settings::save ()
         DBG("SAVE ERROR!");
         return false;
     }
-
 }
 
 File Settings::getXmlFile ()
