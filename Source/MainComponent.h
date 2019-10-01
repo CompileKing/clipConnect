@@ -71,8 +71,8 @@ public:
                 layerButtonsBstate[i] = layerButtonsB[i]->getToggleState();
             }
         }
-        settings.setUserPrefs(layerButtonsAstate,layerButtonsBstate);
-        settings.save();
+        // settings.setUserPrefs(layerButtonsAstate,layerButtonsBstate);
+        // settings.save();
     }
 
 private:
@@ -82,7 +82,6 @@ private:
         elapsed += 0.025f;
         if (elapsed > 2.f && !sendTrigger)
         {
-            cout << "SEND A TRIGGER" << endl;
             triggerSender(receivedMessage, receivedAddress, true);
             sendTrigger = true;
         }

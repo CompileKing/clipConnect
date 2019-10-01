@@ -26,8 +26,7 @@ void Settings::loadParseFeedA()
     settingsData = juce::parseXML (loadedXML);
     indexFeedbackA = 0;
     indexFeedbackB = 0;
-    cout << settingsData->toString() << endl;
-
+    
     for (auto* settingsElement = settingsData->getFirstChildElement(); \
          settingsElement != nullptr; \
          settingsElement = settingsElement->getNextElement())
@@ -88,13 +87,15 @@ bool Settings::save ()
     if (! f.exists() )
         f.create();
     
-    if (settingsData->writeToFile(f, "") )
+    
+    if (settingsData->writeTo(f))
         return true;
     else
     {
         DBG("SAVE ERROR!");
         return false;
     }
+
 }
 
 File Settings::getXmlFile ()

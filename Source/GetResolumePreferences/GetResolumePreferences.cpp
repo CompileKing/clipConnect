@@ -33,7 +33,6 @@ void GetResolumePreferences::parseInject(int versionNumber)
         injection->setAttribute ("name","OSCSMPTEOutEnabled");
         injection->setAttribute("default", 0);
         injection->setAttribute("value", 1);
-        String injectionString = injection->toString();
         
         // <Param name="OSCSMPTEOutEnabled" default="0" value="1"/>
         loadedConfigXml = juce::parseXML (f);
@@ -69,7 +68,7 @@ void GetResolumePreferences::parseInject(int versionNumber)
         }
         cout << loadedConfigXml->toString() << endl;
     }
-    loadedConfigXml->writeToFile(f, "");
+    // loadedConfigXml->writeTo(f);
     
     cout << "" << endl;
     cout << "//////////////////////////////////////////////////////////////" << endl;
