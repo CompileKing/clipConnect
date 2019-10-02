@@ -78,53 +78,75 @@ private:
     
     void timerCallback(int timerId) override
     {
-        elapsed += 0.025f;
-        if (elapsed > 2.f && !sendTrigger)
+        if (timerId == 1)
         {
-            sendTrigger = true;
+            elapsed1 += 0.025f;
+            if (elapsed1 > 2.f && !sendTriggerA)
+            {
+                sendTriggerA = true;
+            }
+            elapsed2 += 0.025f;
+            if (elapsed2 > 2.f && !sendTriggerB)
+            {
+                sendTriggerB = true;
+            }
         }
     }
 
     void oscMessageReceived (const OSCMessage& message) override
     {
-        receivedMessage = message[0].getString().toStdString();
         receivedAddress = message.getAddressPattern().toString().toStdString();
-        elapsed = 0.f;
-        triggerSender(receivedMessage, receivedAddress, false);
-        sendTrigger = false;
+        if (receivedAddress == tcInputAddress1)
+        {
+            triggerSender(message[0].getString().toStdString(), sendTriggerA, 1);
+            elapsed1 = 0.f;
+            sendTriggerA = false;
+        }
+        if (receivedAddress == tcInputAddress2)
+        {
+            triggerSender(message[0].getString().toStdString(), sendTriggerB, 2);
+            elapsed2 = 0.f;
+            sendTriggerB = false;
+        }
     }
     
-    void triggerSender(string message, string address, bool sendAgain )
+    void triggerSender(string message, bool sendAgain, int tcNumber )
     {
+        if (tcNumber == 1)
         {
-            int value = tcTriggerCreator(message, address, tcInputAddress1, 1);
+            int value = tcTriggerCreator(message, 1);
             static int oldValue = value;
             if (value != oldValue || sendAgain)
             {
+                
                 for ( int i = 0; i < layerButtonsA.size(); i++ )
                 {
                     if (layerButtonsAstate[i] == 1)
                     {
-                        string tcOscOutA = "/composition/layers/" + to_string(i+1) + "/clips/" + to_string(value) + "/connect";
-                        const char * tcOscOutAcharStar = tcOscOutA.c_str();
-                        sender.send(tcOscOutAcharStar, 1);
+                        string tcOscOut = "/composition/layers/" + to_string(i+1) + "/clips/" + to_string(value) + "/connect";
+                        const char * tcOscOutCharStar = tcOscOut.c_str();
+                        sender.send(tcOscOutCharStar, 1);
                     }
                 }
+                
                 oldValue = value;
             }
         }
+        
+        if (tcNumber == 2)
         {
-            int value = tcTriggerCreator(message, address, tcInputAddress2, 2);
+            int value = tcTriggerCreator(message, 2);
             static int oldValue = value;
             if (value != oldValue || sendAgain)
             {
+                
                 for ( int i = 0; i < layerButtonsB.size(); i++ )
                 {
                     if (layerButtonsBstate[i] == 1)
                     {
-                        string tcOscOutB = "/composition/layers/" + to_string(i+1) + "/clips/" + to_string(value) + "/connect";
-                        const char * tcOscOutBcharStar = tcOscOutB.c_str();
-                        sender.send(tcOscOutBcharStar, 1);
+                        string tcOscOut = "/composition/layers/" + to_string(i+1) + "/clips/" + to_string(value) + "/connect";
+                        const char * tcOscOutCharStar = tcOscOut.c_str();
+                        sender.send(tcOscOutCharStar, 1);
                     }
                 }
                 oldValue = value;
@@ -132,20 +154,13 @@ private:
         }
     }
     
-    int tcTriggerCreator(const string message, string address, string checkAddress,int tcNumber)
+    int tcTriggerCreator(const string message,int tcNumber)
     {
+        if (tcNumber == 1)
+            timeCodeLabel1.setText(message, dontSendNotification);
+        else if (tcNumber == 2)
+            timeCodeLabel2.setText(message, dontSendNotification);
         
-        const char * address1 = address.c_str();
-        const char * address1Set = checkAddress.c_str();
-        int strncmpResult = strncmp(address1, address1Set, checkAddress.length());
-        if (strncmpResult == 0)
-        {
-            
-            if (tcNumber == 1)
-                timeCodeLabel1.setText(message, dontSendNotification);
-            else if (tcNumber == 2)
-                timeCodeLabel2.setText(message, dontSendNotification);
-            
             for (int i=0;i<144;i++)
             {
                 string oscMessageString = message;
@@ -170,49 +185,7 @@ private:
                 timecodeSlider1.setValue(tcTrigger1/144.f);
             if (tcNumber == 2)
                 timecodeSlider2.setValue(tcTrigger2/144.f);
-            
-            /*
-            float triggerLabelColourOffset = 0.1;
-            float colourOffset = 0.1;
-            
-            if (tcNumber == 1)
-            {
-                timeCodeLabel1.setColour(Label::textColourId,
-                                         Colour::fromHSV(tcTrigger1/144.f*0.4+colourOffset, 1.f, 1.f, 1.f));
-                tcTriggerLabel1.setColour(Label::textColourId,
-                                         Colour::fromHSV(tcTrigger1/144.f*0.4+triggerLabelColourOffset, 1.f, 1.f, 1.f));
-                timecodeSlider1.setColour(Slider::thumbColourId,
-                                          Colour::fromHSV(tcTrigger1/144.f*0.4+colourOffset, 1.f, 1.f, 1.f));
-            }
-            else if (tcNumber == 2)
-            {
-                timeCodeLabel2.setColour(Label::textColourId,
-                                         Colour::fromHSV(tcTrigger2/144.f*0.4+colourOffset, 1.f, 1.f, 1.f));
-                 tcTriggerLabel2.setColour(Label::textColourId,
-                                          Colour::fromHSV(tcTrigger2/144.f*0.4+triggerLabelColourOffset, 1.f, 1.f, 1.f));
-                timecodeSlider2.setColour(Slider::thumbColourId,
-                                          Colour::fromHSV(tcTrigger2/144.f*0.4+colourOffset, 1.f, 1.f, 1.f));
-            }
-            
-            if (tcNumber == 1)
-            {
-                for ( int i = 0; i < layerButtonsA.size(); i++ )
-                {
-                    layerButtonsA[i]->setColour(TextButton::buttonOnColourId,
-                                                Colour::fromHSV(tcTrigger1/144.f*0.4+colourOffset, 1.f, 1.f, 1.f));
-                }
-            }
-            else if (tcNumber == 2)
-            {
-                for ( int i = 0; i < layerButtonsB.size(); i++ )
-                {
-                    layerButtonsB[i]->setColour(TextButton::buttonOnColourId,
-                                                Colour::fromHSV(tcTrigger2/144.f*0.4+colourOffset, 1.f, 1.f, 1.f));
-                }
-            }
-             */
-        }
-        
+                    
         if (tcNumber == 1)
             return tcTrigger1;
         else if (tcNumber == 2)
@@ -245,10 +218,12 @@ private:
     
     float tcTrigger1;
     float tcTrigger2;
-    float elapsed = 0.0f;
+    float elapsed1 = 0.0f;
+    float elapsed2 = 0.0f;
     float realtime = 0.0f;
     
-    bool sendTrigger = false;
+    bool sendTriggerA = false;
+    bool sendTriggerB = false;
     
     int layerButtonsAstate[16] {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
     int layerButtonsBstate[16] {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
