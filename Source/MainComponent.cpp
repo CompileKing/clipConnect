@@ -18,7 +18,8 @@ MainComponent::MainComponent()
     float timecodeLabelSize = 100;
     float triggerLabelSize = 200;
 
-    startTimerHz (30);
+    startTimer(1, 30);
+    startTimer(2, 30);
     // set timecode label
     timeCodeLabel1.setFont(Font ("Monaco", timecodeLabelSize/2.f, 0));
     timeCodeLabel1.setText("00:00:00:00", dontSendNotification);

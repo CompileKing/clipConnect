@@ -27,7 +27,7 @@ class MainComponent   : public Component,
                         public Button::Listener,
                         public Slider::Listener,
                         private OSCReceiver,
-                        private Timer,
+                        private MultiTimer,
                         private OSCReceiver::ListenerWithOSCAddress<OSCReceiver::MessageLoopCallback>
 {
 public:
@@ -47,11 +47,9 @@ public:
     
     void buttonLoad()
     {
-        cout << "setToggleState: ";
         for ( int i = 0; i < layerButtonsA.size(); i++ )
         {
             layerButtonsA[i]->setToggleState(settings.feedbackArrayA[i], sendNotification);
-            cout << to_string(settings.feedbackArrayA[i]);
             layerButtonsB[i]->setToggleState(settings.feedbackArrayB[i], sendNotification);
         }
     }
@@ -78,12 +76,11 @@ public:
 
 private:
     
-    void timerCallback() override
+    void timerCallback(int timerId) override
     {
         elapsed += 0.025f;
         if (elapsed > 2.f && !sendTrigger)
         {
-            triggerSender(receivedMessage, receivedAddress, true);
             sendTrigger = true;
         }
     }
