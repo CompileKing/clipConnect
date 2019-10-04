@@ -20,6 +20,7 @@ public:
     SettingsFolder ();
     ~SettingsFolder ();
     bool save();
+    bool firstTime = false;
     
 private:
     File getXmlFile();

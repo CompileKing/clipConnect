@@ -28,6 +28,7 @@ bool SettingsFolder::save()
     File f = getXmlFile();
     if (! f.exists() )
     {
+        firstTime = true;
         f.create();
         if (settingsFolderData->writeTo(f))
             return true;
@@ -37,6 +38,8 @@ bool SettingsFolder::save()
             return false;
         }
     }
+    else
+        firstTime = false;
 }
 
 File SettingsFolder::getXmlFile()

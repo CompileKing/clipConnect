@@ -12,9 +12,10 @@ using namespace std;
 //==============================================================================
 MainComponent::MainComponent()
 {
+    // create a settingsFolder if there isn't one
     settingsFolder.save();
-    
-    
+    cout << "firstTime? " << settingsFolder.firstTime << endl;
+        
     float timecodeLabelSize = 100;
     float triggerLabelSize = 200;
 
@@ -73,6 +74,7 @@ MainComponent::MainComponent()
     
     ///////////////////////////////////////////////////////////////////////
     
+    // load and parse the layer buttons settings
     settings.loadParseFeedA();
     
     ///////////////////////////////////////////////////////////////////////
@@ -130,10 +132,35 @@ MainComponent::MainComponent()
     setVisible(false);
     setAlwaysOnTop( true );
     
+    
+    // inject the resolume config files with a sneaky child
     getPrefRes6.parseInject(6);
     getPrefRes7.parseInject(7);
     
-     buttonLoad();
+    // load the previously stored layer buttons state
+    buttonLoad();
+        
+    // if it's the first time the user runs the software make sure all the layer buttons are off and save this state
+    if (settingsFolder.firstTime)
+    {
+        for (int i=0; i < layerButtonsA.size(); i++)
+        {
+            layerButtonsA[i]->setToggleState(0, sendNotification);
+            layerButtonsB[i]->setToggleState(0, sendNotification);
+        }
+    }
+    settings.setUserPrefs(layerButtonsAstate,layerButtonsBstate);
+    settings.save();
+    
+    AlertWindow::AlertIconType icon = AlertWindow::NoIcon;
+    icon = AlertWindow::InfoIcon;
+    if (settingsFolder.firstTime)
+    {
+        AlertWindow::showMessageBoxAsync (icon, "First Time Warning",
+                                          firstTimeString,
+        "OK");
+    }
+    
     
 }
 
@@ -233,3 +260,5 @@ void MainComponent::mouseDrag (const MouseEvent& e)
     // as there's no titlebar we have to manage the dragging ourselves
     dragger.dragComponent (this, e, 0);
 }
+
+
