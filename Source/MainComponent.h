@@ -193,8 +193,7 @@ private:
         else
             return 0;
     }
-    
-        
+            
     string tcInputAddress1 = "/smptecontroller/smpte1";
     string tcInputAddress2 = "/smptecontroller/smpte2";
     string receivedMessage = to_string(42);
@@ -253,8 +252,6 @@ private:
     ComponentDragger dragger;
     
     String firstTimeString = "Hi! because this is your first time using ClipConnect you need to make sure you start ClipConnect BEFORE you start Resolume in order for both programs to sync properly. \n\nPlease close both Resolume and ClipConnect and open ClipConnect first. Then Resolume. \n\nThis is only important the first time you run ClipConnect. After you've done it the first time it doesn't matter which program you start first :) \nEnjoy!";
-    
-    
 
     /*
      print: /smptecontroller/smpte1 00:00:25.08

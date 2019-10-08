@@ -130,7 +130,7 @@ MainComponent::MainComponent()
     setSize (1030, 160);
     addToDesktop(ComponentPeer::windowIsTemporary);
     setVisible(false);
-    setAlwaysOnTop( true );
+    setAlwaysOnTop( false );
     
     
     // inject the resolume config files with a sneaky child
@@ -160,8 +160,6 @@ MainComponent::MainComponent()
                                           firstTimeString,
         "OK");
     }
-    
-    
 }
 
 MainComponent::~MainComponent()
