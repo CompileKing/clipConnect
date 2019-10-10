@@ -98,18 +98,23 @@ private:
                 sendTriggerB = true;
             }
         }
-        if (elapsed1 > 0.f)
+        if (elapsed1 > 0.24f)
         {
-            
-            if (settingsFolder.firstTime)
+            bool doTheThing = true;
+            if (doTheThing)
             {
-                AlertWindow::AlertIconType icon = AlertWindow::NoIcon;
-                icon = AlertWindow::InfoIcon;
-                AlertWindow::showMessageBoxAsync (icon, "First Time Warning",
-                                                  firstTimeString,
-                "OK");
+                if (settingsFolder.firstTime)
+                {
+                    AlertWindow::AlertIconType icon = AlertWindow::NoIcon;
+                    icon = AlertWindow::InfoIcon;
+                    AlertWindow::showMessageBoxAsync (icon, "First Time Warning",
+                                                      firstTimeString,
+                                                      "OK");
+                }
+                doTheThing = false;
             }
         }
+    }
             
     }
 
