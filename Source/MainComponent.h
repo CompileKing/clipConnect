@@ -100,8 +100,7 @@ private:
         }
         if (elapsed1 > 0.24f)
         {
-            bool doTheThing = true;
-            if (doTheThing)
+            if (showInfoScreen)
             {
                 if (settingsFolder.firstTime)
                 {
@@ -111,11 +110,9 @@ private:
                                                       firstTimeString,
                                                       "OK");
                 }
-                doTheThing = false;
+                showInfoScreen = false;
             }
         }
-    }
-            
     }
 
     void oscMessageReceived (const OSCMessage& message) override
@@ -249,6 +246,7 @@ private:
     
     bool sendTriggerA = false;
     bool sendTriggerB = false;
+    bool showInfoScreen = true;
     
     int layerButtonsAstate[16] {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
     int layerButtonsBstate[16] {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
