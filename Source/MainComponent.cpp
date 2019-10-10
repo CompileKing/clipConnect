@@ -76,6 +76,19 @@ MainComponent::MainComponent()
     
     // load and parse the layer buttons settings
     settings.loadParseFeedA();
+
+    portSlider.setColour(Slider::textBoxTextColourId, Colours::white.withAlpha(0.7f));
+    portSlider.setColour(Slider::textBoxOutlineColourId, startColour.withAlpha(0.f));
+    portSlider.setColour(Slider::textBoxHighlightColourId, startColour.withAlpha(0.3f));
+    portSlider.setColour(Slider::textBoxBackgroundColourId, arenaBottomGrey.withAlpha(0.f));
+    portSlider.setTextValueSuffix(" // Port");
+    portSlider.setRange(0, 10000,1);
+    portSlider.setValue(7001);
+    portSlider.setSliderStyle(Slider::LinearHorizontal);
+    portSlider.setTextBoxStyle(Slider::TextBoxRight, false, 90, 100);
+    portSlider.setBounds(-210, 0, 300, 20); // 210
+    portSlider.addListener(this);
+    addAndMakeVisible(portSlider);
     
     ///////////////////////////////////////////////////////////////////////
                     
@@ -119,7 +132,7 @@ MainComponent::MainComponent()
     sender.connect("127.0.0.1", 7000);
     
     // OSC Receive connecter
-    if (! connect(7001))
+    if (! connect(currentInputPort))
     {
         cout << "couldn't connect" << endl;
     }
@@ -152,14 +165,7 @@ MainComponent::MainComponent()
     settings.setUserPrefs(layerButtonsAstate,layerButtonsBstate);
     settings.save();
     
-    AlertWindow::AlertIconType icon = AlertWindow::NoIcon;
-    icon = AlertWindow::InfoIcon;
-    if (settingsFolder.firstTime)
-    {
-        AlertWindow::showMessageBoxAsync (icon, "First Time Warning",
-                                          firstTimeString,
-        "OK");
-    }
+    
 }
 
 MainComponent::~MainComponent()

@@ -43,6 +43,13 @@ public:
     
     void sliderValueChanged (Slider* slider) override
     {
+        if (slider == &portSlider)
+        {
+            currentInputPort = portSlider.getValue();
+            if (! connect(currentInputPort))
+                cout << "couldn't connect" << endl;
+        }
+        
     }
     
     void buttonLoad()
@@ -91,6 +98,19 @@ private:
                 sendTriggerB = true;
             }
         }
+        if (elapsed1 > 0.f)
+        {
+            
+            if (settingsFolder.firstTime)
+            {
+                AlertWindow::AlertIconType icon = AlertWindow::NoIcon;
+                icon = AlertWindow::InfoIcon;
+                AlertWindow::showMessageBoxAsync (icon, "First Time Warning",
+                                                  firstTimeString,
+                "OK");
+            }
+        }
+            
     }
 
     void oscMessageReceived (const OSCMessage& message) override
@@ -201,6 +221,7 @@ private:
     
     Slider timecodeSlider1;
     Slider timecodeSlider2;
+    Slider portSlider;
     Label timeCodeLabel1;
     Label timeCodeLabel2;
     Label tcTriggerLabel1;
@@ -219,6 +240,7 @@ private:
     float elapsed1 = 0.0f;
     float elapsed2 = 0.0f;
     float realtime = 0.0f;
+    int currentInputPort = 7001;
     
     bool sendTriggerA = false;
     bool sendTriggerB = false;
