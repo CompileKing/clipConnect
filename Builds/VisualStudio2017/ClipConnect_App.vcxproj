@@ -2584,6 +2584,7 @@
     <ClInclude Include="..\..\JuceLibraryCode\JuceHeader.h"/>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\media\Monaco.ttf"/>
     <None Include="..\..\media\CLIP CONNECT_V1.1.png"/>
     <None Include="..\..\media\SMPTE1.png"/>
     <None Include="..\..\media\SMPTE2Transparent.png"/>

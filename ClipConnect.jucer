@@ -28,6 +28,7 @@
       <FILE id="mp7xs2" name="pugixml.hpp" compile="0" resource="0" file="Source/Pugi/pugixml.hpp"/>
     </GROUP>
     <GROUP id="{3F3A4746-0416-93B1-8DAB-5F69DE525083}" name="media">
+      <FILE id="icPCoo" name="Monaco.ttf" compile="0" resource="1" file="media/Monaco.ttf"/>
       <FILE id="cpHNuo" name="CLIP CONNECT_V1.1.png" compile="0" resource="1"
             file="media/CLIP CONNECT_V1.1.png"/>
       <FILE id="zkuy1s" name="SMPTE1.png" compile="0" resource="1" file="media/SMPTE1.png"/>

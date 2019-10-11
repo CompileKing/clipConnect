@@ -8,6 +8,9 @@
 
 namespace BinaryData
 {
+    extern const char*   Monaco_ttf;
+    const int            Monaco_ttfSize = 53361;
+
     extern const char*   CLIP_CONNECT_V1_1_png;
     const int            CLIP_CONNECT_V1_1_pngSize = 96847;
 
@@ -24,7 +27,7 @@ namespace BinaryData
     const int            SMPTE2_pngSize = 14006;
 
     // Number of elements in the namedResourceList and originalFileNames arrays.
-    const int namedResourceListSize = 5;
+    const int namedResourceListSize = 6;
 
     // Points to the start of a list of resource names.
     extern const char* namedResourceList[];

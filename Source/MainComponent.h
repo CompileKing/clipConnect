@@ -27,7 +27,7 @@ class MainComponent   : public Component,
                         public Button::Listener,
                         public Slider::Listener,
                         private OSCReceiver,
-                        private MultiTimer,
+                        private Timer,
                         private OSCReceiver::ListenerWithOSCAddress<OSCReceiver::MessageLoopCallback>
 {
 public:
@@ -53,6 +53,7 @@ public:
         settings.save();
     }
     
+    // a function that loads up the layer buttons with the stored settings
     void buttonLoad()
     {
         for ( int i = 0; i < layerButtonsA.size(); i++ )
@@ -62,6 +63,7 @@ public:
         }
     }
     
+    // what happens when a layer button gets clicked
     void buttonClicked (Button* button) override
     {
         for ( int i = 0; i < layerButtonsA.size(); i++ )
@@ -84,42 +86,39 @@ public:
 
 private:
     
-    void timerCallback(int timerId) override
+    // what happens everytime our timer gets a call
+    void timerCallback() override
     {
-        if (timerId == 1)
+        elapsed1 += 0.025f;
+        if (elapsed1 > 2.f && !sendTriggerA)
         {
-            elapsed1 += 0.025f;
-            if (elapsed1 > 2.f && !sendTriggerA)
-            {
-                sendTriggerA = true;
-            }
-            elapsed2 += 0.025f;
-            if (elapsed2 > 2.f && !sendTriggerB)
-            {
-                sendTriggerB = true;
-            }
+            sendTriggerA = true;
         }
-        if (timerId == 3)
+        elapsed2 += 0.025f;
+        if (elapsed2 > 2.f && !sendTriggerB)
         {
-            infoSplashTimerElapsed += 0.025f;
-            if (infoSplashTimerElapsed > 0.25f)
+            sendTriggerB = true;
+        }
+                
+        infoSplashTimerElapsed += 0.025f;
+        if (infoSplashTimerElapsed > 0.25f)
+        {
+            if (showInfoScreen)
             {
-                if (showInfoScreen)
+                if (settingsFolder.firstTime)
                 {
-                    if (settingsFolder.firstTime)
-                    {
-                        AlertWindow::AlertIconType icon = AlertWindow::NoIcon;
-                        icon = AlertWindow::InfoIcon;
-                        AlertWindow::showMessageBoxAsync (icon, "First Time Warning",
-                                                          firstTimeString,
-                                                          "OK");
-                    }
-                    showInfoScreen = false;
+                    AlertWindow::AlertIconType icon = AlertWindow::NoIcon;
+                    icon = AlertWindow::InfoIcon;
+                    AlertWindow::showMessageBoxAsync (icon, "First Time Warning",
+                                                      firstTimeString,
+                                                      "OK");
                 }
+                showInfoScreen = false;
             }
         }
     }
 
+    // what happens everytime we receive an osc message
     void oscMessageReceived (const OSCMessage& message) override
     {
         receivedAddress = message.getAddressPattern().toString().toStdString();
@@ -137,6 +136,7 @@ private:
         }
     }
     
+    // a function that sends the created trigger
     void triggerSender(string message, bool sendAgain, int tcNumber )
     {
         if (tcNumber == 1)
@@ -155,7 +155,6 @@ private:
                         sender.send(tcOscOutCharStar, 1);
                     }
                 }
-                
                 oldValue = value;
             }
         }
@@ -181,6 +180,7 @@ private:
         }
     }
     
+    // a fucntion that creates a trigger based on TC input
     int tcTriggerCreator(const string message,int tcNumber)
     {
         if (tcNumber == 1)

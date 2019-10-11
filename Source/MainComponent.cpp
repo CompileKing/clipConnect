@@ -14,14 +14,12 @@ MainComponent::MainComponent()
 {
     // create a settingsFolder if there isn't one
     settingsFolder.save();
-    cout << "firstTime? " << settingsFolder.firstTime << endl;
-        
+    // start ze timer
+    startTimer(30);
+    
     float timecodeLabelSize = 100;
     float triggerLabelSize = 200;
-
-    startTimer(1, 30);
-    startTimer(2, 30);
-    startTimer(3, 30);
+    
     // set timecode label
     timeCodeLabel1.setFont(Font ("Monaco", timecodeLabelSize/2.f, 0));
     timeCodeLabel1.setText("00:00:00:00", dontSendNotification);
@@ -78,6 +76,7 @@ MainComponent::MainComponent()
     // load and parse the layer buttons settings
     settings.loadParseSettings();
 
+    // set the port textbox stuff
     portSlider.setColour(Slider::textBoxTextColourId, Colours::white.withAlpha(0.7f));
     portSlider.setColour(Slider::textBoxOutlineColourId, startColour.withAlpha(0.f));
     portSlider.setColour(Slider::textBoxHighlightColourId, startColour.withAlpha(0.3f));
@@ -102,6 +101,7 @@ MainComponent::MainComponent()
     
     ///////////////////////////////////////////////////////////////////////
                     
+    // create the layer buttons
     for(int i = 0; i < 16; i++)
     {
         TextButton* layer = new TextButton();
@@ -120,6 +120,7 @@ MainComponent::MainComponent()
         layerButtonsB.add(layer);
     }
      
+    // set the layer buttons
     for ( int i = 0; i < layerButtonsA.size(); i++ )
     {
         string buttonLabel = to_string(i+1);
@@ -140,16 +141,11 @@ MainComponent::MainComponent()
     
     // OSC send connecter
     sender.connect("127.0.0.1", 7000);
-    
-    // OSC Receive connecter
-    if (! connect(currentInputPort))
-    {
-        cout << "couldn't connect" << endl;
-    }
 
     addListener(this, tcInputAddress1.c_str());
     addListener(this, tcInputAddress2.c_str());
     
+    // set JUCE stuff
     setSize (1030, 160);
     addToDesktop(ComponentPeer::windowIsTemporary);
     setVisible(false);
@@ -175,13 +171,11 @@ MainComponent::MainComponent()
         settings.setUserPort(currentInputPort);
         settings.save();
     }
-    
-    
-    
 }
 
 MainComponent::~MainComponent()
 {
+    // destroy it all
     for ( int i = 0; i < layerButtonsA.size(); i++ )
     {
         layerButtonsA[i]->deleteAllChildren();
@@ -192,11 +186,12 @@ MainComponent::~MainComponent()
 //==============================================================================
 void MainComponent::paint (Graphics& g)
 {
+    // draw some basics
     g.fillAll(backgroundGrey);
-    //g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
     g.setColour(Colour::fromRGBA(0, 0, 0, 80));
     g.drawLine(getWidth()/2.f, 0, getWidth()/2.f, getHeight(),5.f);
     
+    // draw some images
     int imageXoffset = -176;
     int imageYoffset = 32;
     int objectSize = 50;
@@ -219,6 +214,7 @@ void MainComponent::paint (Graphics& g)
 
 void MainComponent::resized()
 {
+    // set the bounds for basically all the objects that need a new set of offsets when resized
     int timecodeLabelYoffset = 20;
     int triggerLabelXoffset = 210;
     int triggerLabelYoffset = 33;

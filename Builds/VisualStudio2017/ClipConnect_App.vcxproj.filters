@@ -4391,6 +4391,9 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\media\Monaco.ttf">
+      <Filter>ClipConnect\media</Filter>
+    </None>
     <None Include="..\..\media\CLIP CONNECT_V1.1.png">
       <Filter>ClipConnect\media</Filter>
     </None>
