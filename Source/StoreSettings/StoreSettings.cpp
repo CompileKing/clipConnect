@@ -20,7 +20,7 @@ Settings::~Settings()
     settingsData = nullptr;
 }
 
-void Settings::loadParseFeedA()
+void Settings::loadParseSettings()
 {
     File loadedXML = getXmlFile();
     if (loadedXML.exists())
@@ -34,28 +34,32 @@ void Settings::loadParseFeedA()
              settingsElement != nullptr; \
              settingsElement = settingsElement->getNextElement())
         {
-            // cout << "found user settings" << endl;
             for (auto* buttonElement = settingsElement->getChildByName("buttonA"); \
                  buttonElement != nullptr; \
                  buttonElement = buttonElement->getNextElementWithTagName("buttonA"))
             {
                 feedbackArrayA[indexFeedbackA] = buttonElement->getAttributeValue(0).getIntValue();
-                // cout << feedbackArrayA[indexFeedbackA];
                 indexFeedbackA++;
             }
-            // cout << endl;
             for (auto* buttonElement = settingsElement->getChildByName("buttonB"); \
                  buttonElement != nullptr; \
                  buttonElement = buttonElement->getNextElementWithTagName("buttonB"))
             {
                 feedbackArrayB[indexFeedbackB] = buttonElement->getAttributeValue(0).getIntValue();
-                // cout << feedbackArrayB[indexFeedbackB];
                 indexFeedbackB++;
             }
-            // cout << endl;
+        }
+        
+        for (auto* portElement = settingsData->getChildByName("userPort"); \
+        portElement != nullptr; \
+        portElement = portElement->getNextElementWithTagName("userPort"))
+        {
+            int portInt = portElement->getAttributeValue(0).getIntValue();
+            storedUserPort = portInt;
         }
     }
 }
+
 
 void Settings::setUserPrefs(int buttonStateArrayA[],int buttonStateArrayB[])
 {
@@ -82,6 +86,15 @@ void Settings::setUserPrefs(int buttonStateArrayA[],int buttonStateArrayB[])
         userPrefs->addChildElement(buttonElement);
     }
     settingsData->addChildElement( userPrefs );
+}
+
+void Settings::setUserPort(int port)
+{
+    settingsData->deleteAllChildElementsWithTagName( "userPort") ;
+    XmlElement* portNumber = new XmlElement("userPort");
+    String portString = "portNumber";
+    portNumber->setAttribute(portString, to_string(port));
+    settingsData->addChildElement(portNumber);
 }
 
 bool Settings::save ()

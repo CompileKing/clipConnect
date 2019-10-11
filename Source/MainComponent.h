@@ -49,7 +49,8 @@ public:
             if (! connect(currentInputPort))
                 cout << "couldn't connect" << endl;
         }
-        
+        settings.setUserPort(currentInputPort);
+        settings.save();
     }
     
     void buttonLoad()
@@ -77,8 +78,8 @@ public:
                 layerButtonsBstate[i] = layerButtonsB[i]->getToggleState();
             }
         }
-         settings.setUserPrefs(layerButtonsAstate,layerButtonsBstate);
-         settings.save();
+        settings.setUserPrefs(layerButtonsAstate,layerButtonsBstate);
+        settings.save();
     }
 
 private:
@@ -98,19 +99,23 @@ private:
                 sendTriggerB = true;
             }
         }
-        if (elapsed1 > 0.24f)
+        if (timerId == 3)
         {
-            if (showInfoScreen)
+            infoSplashTimerElapsed += 0.025f;
+            if (infoSplashTimerElapsed > 0.25f)
             {
-                if (settingsFolder.firstTime)
+                if (showInfoScreen)
                 {
-                    AlertWindow::AlertIconType icon = AlertWindow::NoIcon;
-                    icon = AlertWindow::InfoIcon;
-                    AlertWindow::showMessageBoxAsync (icon, "First Time Warning",
-                                                      firstTimeString,
-                                                      "OK");
+                    if (settingsFolder.firstTime)
+                    {
+                        AlertWindow::AlertIconType icon = AlertWindow::NoIcon;
+                        icon = AlertWindow::InfoIcon;
+                        AlertWindow::showMessageBoxAsync (icon, "First Time Warning",
+                                                          firstTimeString,
+                                                          "OK");
+                    }
+                    showInfoScreen = false;
                 }
-                showInfoScreen = false;
             }
         }
     }
@@ -241,6 +246,7 @@ private:
     float tcTrigger2;
     float elapsed1 = 0.0f;
     float elapsed2 = 0.0f;
+    float infoSplashTimerElapsed = 0.0f;
     float realtime = 0.0f;
     int currentInputPort = 7001;
     

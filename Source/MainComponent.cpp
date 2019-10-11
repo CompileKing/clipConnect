@@ -21,6 +21,7 @@ MainComponent::MainComponent()
 
     startTimer(1, 30);
     startTimer(2, 30);
+    startTimer(3, 30);
     // set timecode label
     timeCodeLabel1.setFont(Font ("Monaco", timecodeLabelSize/2.f, 0));
     timeCodeLabel1.setText("00:00:00:00", dontSendNotification);
@@ -75,7 +76,7 @@ MainComponent::MainComponent()
     ///////////////////////////////////////////////////////////////////////
     
     // load and parse the layer buttons settings
-    settings.loadParseFeedA();
+    settings.loadParseSettings();
 
     portSlider.setColour(Slider::textBoxTextColourId, Colours::white.withAlpha(0.7f));
     portSlider.setColour(Slider::textBoxOutlineColourId, startColour.withAlpha(0.f));
@@ -83,7 +84,16 @@ MainComponent::MainComponent()
     portSlider.setColour(Slider::textBoxBackgroundColourId, arenaBottomGrey.withAlpha(0.f));
     portSlider.setTextValueSuffix(" // Port");
     portSlider.setRange(0, 10000,1);
-    portSlider.setValue(7001);
+    
+    if (settingsFolder.firstTime)
+    {
+        portSlider.setValue(currentInputPort);
+    }
+    else if (!settingsFolder.firstTime)
+    {
+        portSlider.setValue(settings.storedUserPort);
+    }
+    
     portSlider.setSliderStyle(Slider::LinearHorizontal);
     portSlider.setTextBoxStyle(Slider::TextBoxRight, false, 90, 100);
     portSlider.setBounds(-210, 0, 300, 20); // 210
@@ -161,9 +171,11 @@ MainComponent::MainComponent()
             layerButtonsA[i]->setToggleState(0, sendNotification);
             layerButtonsB[i]->setToggleState(0, sendNotification);
         }
+        settings.setUserPrefs(layerButtonsAstate,layerButtonsBstate);
+        settings.setUserPort(currentInputPort);
+        settings.save();
     }
-    settings.setUserPrefs(layerButtonsAstate,layerButtonsBstate);
-    settings.save();
+    
     
     
 }

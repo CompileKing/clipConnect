@@ -66,7 +66,7 @@ void GetResolumePreferences::parseInject(int versionNumber)
                 }
             }
         }
-        cout << loadedConfigXml->toString() << endl;
+        // cout << loadedConfigXml->toString() << endl;
     }
     loadedConfigXml->writeTo(f);
     

@@ -19,8 +19,10 @@ public:
     Settings ();
     ~Settings ();
     bool save ();
-    void loadParseFeedA ();
+    void loadParseSettings ();
     void setUserPrefs (int buttonStateArrayA[],int buttonStateArrayB[]);
+    void setUserPort (int port);
+    int storedUserPort;
     int feedbackArrayA[100];
     int feedbackArrayB[100];
     int indexFeedbackA;
