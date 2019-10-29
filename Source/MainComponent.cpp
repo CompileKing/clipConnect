@@ -17,18 +17,20 @@ MainComponent::MainComponent()
     // start ze timer
     startTimer(30);
     
-    float timecodeLabelSize = 100;
-    float triggerLabelSize = 200;
+    float timecodeLabelSize = 42;
+    float triggerLabelSize = 80;
     
     // set timecode label
-    timeCodeLabel1.setFont(Font ("Monaco", timecodeLabelSize/2.f, 0));
+    monacoFont.setHeight(timecodeLabelSize);
+    timeCodeLabel1.setFont(monacoFont);
     timeCodeLabel1.setText("00:00:00:00", dontSendNotification);
     timeCodeLabel1.setJustificationType(Justification::centred);
     timeCodeLabel1.setColour(Label::textColourId, startColour);
     addAndMakeVisible(timeCodeLabel1);
 
     // set tcTriggerLabel1 label
-    tcTriggerLabel1.setFont(Font ("Monaco", triggerLabelSize/2.f, 0));
+    monacoFont.setHeight(triggerLabelSize);
+    tcTriggerLabel1.setFont(monacoFont);
     tcTriggerLabel1.setText("0", dontSendNotification);
     tcTriggerLabel1.setJustificationType(Justification::centred);
     tcTriggerLabel1.setColour(Label::textColourId, startColour);
