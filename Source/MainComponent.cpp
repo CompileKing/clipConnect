@@ -18,7 +18,7 @@ MainComponent::MainComponent()
     startTimer(30);
     
 #ifdef JUCE_WINDOWS
-    timeCodeLabelSize = 50;
+    timecodeLabelSize = 50;
     triggerLabelSize = 92;
 #endif
 #ifdef JUCE_MAC
