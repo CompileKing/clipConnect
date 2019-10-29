@@ -18,8 +18,8 @@ MainComponent::MainComponent()
     startTimer(30);
     
 #ifdef JUCE_WINDOWS
-    timeCodeLabelSize = 42;
-    triggerLabelSize = 84;
+    timeCodeLabelSize = 50;
+    triggerLabelSize = 92;
 #endif
 #ifdef JUCE_MAC
     timecodeLabelSize = 42;
@@ -232,6 +232,11 @@ void MainComponent::resized()
     int objectSize = getWidth()-320;
     int edgeDistance = getWidth()/4;
     int sliderSize = 280;
+    
+    #ifdef JUCE_MAC
+        timecodeLabelYoffset += 7;
+        triggerLabelYoffset += 7;
+    #endif
         
     timeCodeLabel1.setBounds    ((getWidth()/2)-(objectSize/2)-(getWidth()/2.f)+edgeDistance+xOffset,
                                 (getHeight()/2)-(objectSize/2)+yOffset+timecodeLabelYoffset,
