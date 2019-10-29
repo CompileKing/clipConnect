@@ -237,7 +237,7 @@ private:
     OSCSender sender;
 
     Image smpte1image = ImageCache::getFromMemory (BinaryData::SMPTE1_png, BinaryData::SMPTE1_pngSize);
-    Image smpte2image = ImageCache::getFromMemory (BinaryData::SMPTE2_png, BinaryData::SMPTE2_pngSize);    
+    Image smpte2image = ImageCache::getFromMemory (BinaryData::SMPTE2_png, BinaryData::SMPTE2_pngSize);
     Font monacoFont = Typeface::createSystemTypefaceFor(BinaryData::Monaco_ttf,
                                                         BinaryData::Monaco_ttfSize);
     
@@ -250,6 +250,8 @@ private:
     float elapsed2 = 0.0f;
     float infoSplashTimerElapsed = 0.0f;
     float realtime = 0.0f;
+    float timecodeLabelSize;
+    float triggerLabelSize;
     int currentInputPort = 7001;
     
     bool sendTriggerA = false;

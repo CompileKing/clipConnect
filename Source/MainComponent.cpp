@@ -17,8 +17,14 @@ MainComponent::MainComponent()
     // start ze timer
     startTimer(30);
     
-    float timecodeLabelSize = 42;
-    float triggerLabelSize = 80;
+#ifdef JUCE_WINDOWS
+    timeCodeLabelSize = 42;
+    triggerLabelSize = 84;
+#endif
+#ifdef JUCE_MAC
+    timecodeLabelSize = 42;
+    triggerLabelSize = 84;
+#endif
     
     // set timecode label
     monacoFont.setHeight(timecodeLabelSize);
@@ -49,14 +55,16 @@ MainComponent::MainComponent()
     ///////////////////////////////////////////////////////////////////////
 
     // set timecode label2
-    timeCodeLabel2.setFont(Font ("Monaco", timecodeLabelSize/2.f, 0));
+    monacoFont.setHeight(timecodeLabelSize);
+    timeCodeLabel2.setFont(monacoFont);
     timeCodeLabel2.setText("00:00:00:00", dontSendNotification);
     timeCodeLabel2.setJustificationType(Justification::centred);
     timeCodeLabel2.setColour(Label::textColourId, startColour);
     addAndMakeVisible(timeCodeLabel2);
     
     // set tcTriggerLabel label2
-    tcTriggerLabel2.setFont(Font ("Monaco", triggerLabelSize/2.f, 0));
+    monacoFont.setHeight(triggerLabelSize);
+    tcTriggerLabel2.setFont(monacoFont);
     tcTriggerLabel2.setText("0", dontSendNotification);
     tcTriggerLabel2.setJustificationType(Justification::centred);
     tcTriggerLabel2.setColour(Label::textColourId, startColour);
